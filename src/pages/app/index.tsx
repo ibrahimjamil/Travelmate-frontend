@@ -9,6 +9,7 @@ import {
 import AuthGuard from '../../guards/authGuard';
 import { links } from '../../utils/data';
 import { GenericHeader } from '../../components';
+import Admin from '../../container';
 
 
 type UserType = {
@@ -36,6 +37,7 @@ const AppIndex = () => {
 							<Route key="admin" path={'/app/admin'}>
 								<>
 									<GenericHeader links={links}/>
+									<Admin/>
 								</>
 							</Route>
 							<Redirect

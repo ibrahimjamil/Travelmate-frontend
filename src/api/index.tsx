@@ -1,9 +1,9 @@
 import authApi from './authApi';
 import userApi from './userApi';
-import productApi from './productApi';
+import travelerApi from './travelersApi';
 
 export {
     authApi,
     userApi,
-    productApi
+    travelerApi
 }

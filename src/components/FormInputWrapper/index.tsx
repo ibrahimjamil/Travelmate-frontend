@@ -1,4 +1,4 @@
-import { InputWrapper, Input } from '@mantine/core';
+import { Input, InputWrapper } from '@mantine/core';
 import { stringToRegex } from '../../utils/common';
 
 type InputWrapperComponent = {
