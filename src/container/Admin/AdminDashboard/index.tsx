@@ -84,10 +84,10 @@ const RecommendedTravelerSideBarFilter = emotionStyled.div`
 export function AdminDashboard() {
 	const { classes } = useStyles();
 	const [searchParam, setSearchProduct] = useState('');
-	const [productsData, setProductsData] = useState<any[]>([]);
+	const [travelersData, setTravelersData] = useState<any[]>([]);
 	const [pageNo, setPageNo] = useState('1');
 	const [pageSize, setPageSize] = useState('25');
-	const [totalProducts, setTotalProducts] = useState(0);
+	const [totalTravelers, setTotalTravelers] = useState(0);
 	const [isSearchBegin, setIsSearchBegin] = useState(false);
     const [travelerGender, setTravelerGender] = useState<string[]>(DemoGender.data);
     const [travelerLocation, setTravelerLocation] = useState<string[]>(DemoLocation.data);
@@ -111,7 +111,7 @@ export function AdminDashboard() {
 	};
 
 	// get product filter query
-	const { refetch: refetchProductsByFilterQuery, isFetching } = useQuery(
+	const { refetch: refetchTravelersByFilterQuery, isFetching } = useQuery(
 		[
 			'getRecommendations',
 			'recommendations',
@@ -140,14 +140,14 @@ export function AdminDashboard() {
 	useEffect(() => {
 		const fetchQuery = async () => {
 			const [
-				productsInfo,
+				travelerInfo,
 			] = await Promise.allSettled([
-			  refetchProductsByFilterQuery(),
+			  refetchTravelersByFilterQuery(),
 			]);
 		  
-			if (productsInfo.status === 'fulfilled') {
-			  setProductsData(productsInfo.value.data?.data.hits);
-			  setTotalProducts(productsInfo.value.data?.data?.estimatedTotalHits);
+			if (travelerInfo.status === 'fulfilled') {
+			  setTravelersData(travelerInfo.value.data?.data.hits);
+			  setTotalTravelers(travelerInfo.value.data?.data?.estimatedTotalHits);
 			}
 		  };
 		fetchQuery();
@@ -155,12 +155,12 @@ export function AdminDashboard() {
 
 	useEffect(() => {
 		const fetchQuery = async () => {
-			const productsInfo: QueryObserverResult<
+			const travelerInfo: QueryObserverResult<
 				AxiosResponse<any, any>,
 				any
-			> = await refetchProductsByFilterQuery();
-			setProductsData(productsInfo.data?.data.hits);
-			setTotalProducts(productsInfo.data?.data?.estimatedTotalHits);
+			> = await refetchTravelersByFilterQuery();
+			setTravelersData(travelerInfo.data?.data.hits);
+			setTotalTravelers(travelerInfo.data?.data?.estimatedTotalHits);
 		};
 		fetchQuery();
 	}, [doFetchNow]);
@@ -179,24 +179,24 @@ export function AdminDashboard() {
 	]);
 
 	// product mapping with head data
-	const filterRecommendedTravelerColumnMapping = useMemo(() => (productData: any) => {
-		return productData?.map((product: any, index: number) => {
+	const filterRecommendedTravelerColumnMapping = useMemo(() => (travelerData: any) => {
+		return travelerData?.map((data: any, index: number) => {
 			return {
-				Image: product?.imageFront,
-				Name: product?.productStyle?.styleName,
+				Image: data?.imageFront,
+				Name: data?.productStyle?.styleName,
 				Description:
-					product?.productStyle?.vendorDescription?.split('.')[0] || 'No description for this recommended traveler',
-                Gender: product?.productStyle?.description,
+					data?.productStyle?.vendorDescription?.split('.')[0] || 'No description for this recommended traveler',
+                Gender: data?.productStyle?.description,
 				Color: {
-					name: product?.productColor?.name,
-					colorSwatch: product?.productColor?.colorSwatch ?? '',
+					name: data?.productColor?.name,
+					colorSwatch: data?.productColor?.colorSwatch ?? '',
 				},
-				MatchPercentage: product?.productSize?.symbol,
+				MatchPercentage: data?.productSize?.symbol,
 				Status: '',
 				Visits: ''
 			};
 		});
-	}, [productsData])
+	}, [travelersData])
 
 	const handlePageSizeChange =_.debounce((size) => {
 		if (size) {
@@ -375,7 +375,7 @@ export function AdminDashboard() {
                                 horizontalSpacing="sm"
                                 minimumQty={minimumQuantity}
                                 tableHead={tableData.tableHead}
-                                tableBodyData={filterRecommendedTravelerColumnMapping(productsData)}
+                                tableBodyData={filterRecommendedTravelerColumnMapping(travelersData)}
                             />
 						)}
 					</RecommendedTravelerTableContainer>
@@ -385,15 +385,15 @@ export function AdminDashboard() {
 			<AdminSitePagination
 				pageSizeValue={Number(pageSize)}
 				pageSizeOnChange={handlePageSizeChange}
-				paginationTotal={Math.ceil(totalProducts / parseInt(pageSize))}
+				paginationTotal={Math.ceil(totalTravelers / parseInt(pageSize))}
 				paginationPage={parseInt(pageNo)}
 				paginationOnChange={(number: any) => setPageNo(String(number))}
-				pageNoMax={Math.floor(totalProducts / parseInt(pageSize))}
+				pageNoMax={Math.floor(totalTravelers / parseInt(pageSize))}
 				pageNoValue={Number(pageNo)}
 				pageNoOnChange={(number: any) => {
 					if (number) {
-						if (number > Math.floor(totalProducts / parseInt(pageSize))) {
-							let parsedNumber = String(Math.floor(totalProducts / parseInt(pageSize)));
+						if (number > Math.floor(totalTravelers / parseInt(pageSize))) {
+							let parsedNumber = String(Math.floor(totalTravelers / parseInt(pageSize)));
 							setPageNo(parsedNumber);
 						} else if (number === 0) {
 							setPageNo('1');
