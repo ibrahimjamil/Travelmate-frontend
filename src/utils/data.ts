@@ -39,7 +39,7 @@ const DemoLocation = {
 
 const tableData={
   tableHead:[
-    'Image', 'Name', 'Description', 'Gender', 'MatchPercentage'
+    'Image', 'Name', 'Description', 'Gender', 'MatchPercentage', 'Status', 'Visits'
   ]
 }
 

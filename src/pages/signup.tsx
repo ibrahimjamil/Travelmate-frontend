@@ -14,6 +14,9 @@ type FormInputType = {
 	password: string;
 	firstName: string;
 	type: string;
+	age: string;
+	gender: string;
+	location: string;
 };
 
 type SignUpMutationType = {
@@ -22,6 +25,9 @@ type SignUpMutationType = {
 	lastName: string;
 	password: string;
 	type: string;
+	age: string;
+	gender: string;
+	location: string;
 };
 
 type SignInMutationResponse = {
@@ -38,6 +44,9 @@ type ErrorFields = {
 	email: string;
 	password: string;
 	type: string;
+	age: string;
+	gender: string;
+	location: string;
 };
 
 type ErrorFieldsType = [...[keyof ErrorFields]];
@@ -146,11 +155,11 @@ const SignUp = () => {
 
 	const onSubmit: SubmitHandler<FormInputType> = async (formData) => {
 
-		let { firstName, lastName, email, password, type } = formData;
+		let { firstName, lastName, email, password, type, age, gender, location } = formData;
 
 		if (firstName && lastName && password && email && checked) {
 
-			const signupData: SignUpMutationType = { firstName, lastName, email, password, type };
+			const signupData: SignUpMutationType = { firstName, lastName, email, password, type, age, gender, location };
 
 			await signUpMutation.mutateAsync(
 				{ ...signupData },
@@ -260,6 +269,36 @@ const SignUp = () => {
 										? 'type must be valid'
 										: ''
 								}
+							/>
+						</Grid.Col>
+						<Grid.Col span={6}>
+							<FormInputWrapperComponent
+								label="Age"
+								name="age"
+								required={true}
+								placeholder="Enter your age"
+								className={classes.inputWrapper}
+								register={register}
+							/>
+						</Grid.Col>
+						<Grid.Col span={6}>
+							<FormInputWrapperComponent
+								label="Gender"
+								name="gender"
+								required={true}
+								placeholder="Enter your gender"
+								className={classes.inputWrapper}
+								register={register}
+							/>
+						</Grid.Col>
+						<Grid.Col span={6}>
+							<FormInputWrapperComponent
+								label="Location"
+								name="location"
+								required={true}
+								placeholder="Enter your location"
+								className={classes.inputWrapper}
+								register={register}
 							/>
 						</Grid.Col>
 						<Grid.Col span={6}>

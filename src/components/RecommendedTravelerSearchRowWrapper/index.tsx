@@ -1,4 +1,4 @@
-import { Box, Button, createStyles, Grid, NumberInput } from "@mantine/core";
+import { Box, Button, createStyles, Grid, NumberInput, SegmentedControl } from "@mantine/core";
 import { useMediaQuery } from "@mantine/hooks";
 import { useState } from "react";
 import InputWrapper from "../InputWrapper";
@@ -34,6 +34,9 @@ const useStyles = createStyles((theme) => ({
 		alignItems: 'flex-end',
         marginRight: "10px"
 	},
+    segmentControlButton: {
+        height: '38px !important',
+    }
 }))
 
 type RecommendedTravelerSearchRowWrapper = {
@@ -108,6 +111,20 @@ export function RecommendedTravelerSearchRowWrapper (props: RecommendedTravelerS
                     >
                         Clear All
                     </Button>
+            <Box mt={-23}>
+                        <div style={{ marginBottom: '8px', fontSize: '1em', fontWeight: 600 }}>
+                            {'Desired Index'}
+                        </div>
+                        <SegmentedControl
+                            color={"blue"}
+                            className={classes.segmentControlButton}
+                            value={'Traveler-style'}
+                            data={[
+                                { value: 'Traveler-variant', label: 'Traveler-variant' },
+                                { value: 'Traveler-style', label: 'Traveler-style' },
+                            ]}
+                        />
+                    </Box>
             </Grid.Col>
         </>
     )

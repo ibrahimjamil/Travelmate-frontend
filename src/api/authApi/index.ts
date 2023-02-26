@@ -8,6 +8,9 @@ type SignUpMutationType = {
     lastName: string;
 	password: string;
     type: string;
+    age: string;
+    gender: string;
+    location: string;
 }
 
 type SignInMutationType = {
@@ -34,7 +37,10 @@ const signUp = async (signUpFields: SignUpMutationType) => {
         firstName: signUpFields.firstName,
         lastName: signUpFields.lastName,
         password: signUpFields.password,
-        type: signUpFields.type
+        type: signUpFields.type,
+        age: signUpFields.age,
+        gender: signUpFields.gender,
+        location: signUpFields.location
     })
 }
 

@@ -192,6 +192,8 @@ export function AdminDashboard() {
 					colorSwatch: product?.productColor?.colorSwatch ?? '',
 				},
 				MatchPercentage: product?.productSize?.symbol,
+				Status: '',
+				Visits: ''
 			};
 		});
 	}, [productsData])
