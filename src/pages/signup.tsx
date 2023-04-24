@@ -2,11 +2,12 @@ import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { useMutation } from 'react-query';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { Grid, createStyles, Text, Checkbox, Button, PasswordInput, Loader, Progress } from '@mantine/core';
+import { Grid, createStyles, Text, Checkbox, Button, PasswordInput, Loader, Progress, MultiSelect } from '@mantine/core';
 import { authApi } from '../api';
 import FormInputWrapperComponent from '../components/FormInputWrapper';
 import { getStrength, PasswordRequirement, requirements } from '../components/Password';
 import { SERVER_DOWN } from '../constants/messages';
+import MultiSelectComponent from '../components/MultiSearch';
 
 type FormInputType = {
 	email: string;
@@ -20,6 +21,10 @@ type FormInputType = {
 };
 
 type SignUpMutationType = {
+	expectedMateAge: string[];
+	expectedVisitingPlaces: string[];
+	travelLocations: string[];
+	genderPreference: string[];
 	email: string;
 	firstName: string;
 	lastName: string;
@@ -129,6 +134,10 @@ const useStyles = createStyles(() => ({
 const SignUp = () => {
 	const { classes } = useStyles();
 	const router = useRouter();
+	const [expectedVisitingPlaces, setExpectedVisitingPlaces] = useState([]);
+	const [expectedMateAge ,setExpectedMateAge] = useState([]);
+	const [travelLocations ,setTravelLocations] = useState([]);
+	const [genderPreference, setGenderPreference] = useState([]);
 	const [error, setError] = useState({
 		error: false,
 		message: '',
@@ -159,10 +168,10 @@ const SignUp = () => {
 
 		if (firstName && lastName && password && email && checked) {
 
-			const signupData: SignUpMutationType = { firstName, lastName, email, password, type, age, gender, location };
+			const signupData: SignUpMutationType = { firstName, lastName, email, password, type, age, gender, location, expectedMateAge,  expectedVisitingPlaces, travelLocations, genderPreference};
 
 			await signUpMutation.mutateAsync(
-				{ ...signupData },
+				{ ...signupData, expectedVisitingPlaces, expectedMateAge, travelLocations, genderPreference },
 				{
 					onSuccess: (data) => {
 						setError({
@@ -301,6 +310,58 @@ const SignUp = () => {
 								register={register}
 							/>
 						</Grid.Col>
+						<Grid.Col span={6}>
+							<MultiSelectComponent
+								cdata={[
+									{ label: 'United States', value: 'US' },
+									{ label: 'Great Britain', value: 'GB' },
+									{ label: 'Finland', value: 'FI' },
+									{ label: 'France', value: 'FR' },
+									{ label: 'Russia', value: 'RU' },
+									{ label: 'Pakistan', value: 'PK' }
+								  ]}
+								label={'Expected places'}
+								placeholder={'choose expected places to visit'}
+								handleChange={(data: any) => setExpectedVisitingPlaces(data)}
+							/>
+						</Grid.Col>
+						<Grid.Col span={6}>
+							<MultiSelectComponent
+								cdata={[
+									{ label: 'above 10 below 20', value: '10' },
+									{ label: 'above 20 below 30', value: '20' },
+									{ label: 'above 30 below 40', value: '30' },
+									{ label: 'above 40 below 50', value: '40' },
+									{ label: 'above 50 below 60', value: '50' }
+								  ]}
+								label={'Mate Age Requirements'}
+								placeholder={'choose expected age of traveler'}
+								handleChange={(data: any) => setExpectedMateAge(data)}
+							/>
+						</Grid.Col>
+						<Grid.Col span={6}>
+							<MultiSelectComponent
+								cdata={[
+									{ label: 'local', value: 'local' },
+									{ label: 'international', value: 'international' },
+								  ]}
+								label={'Location preference'}
+								placeholder={'choose travel locations'}
+								handleChange={(data: any) => setTravelLocations(data)}
+							/>
+						</Grid.Col>
+						<Grid.Col span={6}>
+							<MultiSelectComponent
+								cdata={[
+									{ label: 'male', value: 'male' },
+									{ label: 'female', value: 'female' },
+								  ]}
+								label={'Gender Preference'}
+								placeholder={'choose gender preference'}
+								handleChange={(data: any) => setGenderPreference(data)}
+							/>
+						</Grid.Col>
+						
 						<Grid.Col span={6}>
 							<PasswordInput
 								placeholder="Enter your password"

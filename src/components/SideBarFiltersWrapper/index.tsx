@@ -158,24 +158,6 @@ export function SideBarFiltersWrapper (props: SideBarFilterWrapper){
                     />
                 </Box>
             </Box>
-            <Box>
-                <Box mb={6} className={classes.label}>
-                    Rating
-                </Box>
-                <Box>
-                    <InfiniteSelectComponent
-                        data={GenderData}
-                        value={selectGenderValue}
-                        className={GenderClassName}
-                        isLoading={GenderIsLoading}
-                        onChange={handleGenderOnChange}
-                        placeholder={GenderPlaceholder}
-                        sliceData={selectGenderSliceData}
-                        initialRenderData={initialGenderRenderData}
-                        isInitialHasMore={isInitialGenderHasMore}
-                    />
-                </Box>
-            </Box>
         </>
     )
 }
