@@ -118,10 +118,9 @@ export function RecommendedTravelerSearchRowWrapper (props: RecommendedTravelerS
                         <SegmentedControl
                             color={"blue"}
                             className={classes.segmentControlButton}
-                            value={'Traveler-style'}
+                            value={'Traveler-variant'}
                             data={[
-                                { value: 'Traveler-variant', label: 'Traveler-variant' },
-                                { value: 'Traveler-style', label: 'Traveler-style' },
+                                { value: 'Traveler-variant', label: 'Traveler-variant' }
                             ]}
                         />
                     </Box>
