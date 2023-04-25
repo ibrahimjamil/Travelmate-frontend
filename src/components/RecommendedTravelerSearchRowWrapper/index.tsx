@@ -113,14 +113,14 @@ export function RecommendedTravelerSearchRowWrapper (props: RecommendedTravelerS
                     </Button>
             <Box mt={-23}>
                         <div style={{ marginBottom: '8px', fontSize: '1em', fontWeight: 600 }}>
-                            {'Desired Index'}
+                            {'Recommended Index'}
                         </div>
                         <SegmentedControl
                             color={"blue"}
                             className={classes.segmentControlButton}
-                            value={'Traveler-variant'}
+                            value={'Traveler-index'}
                             data={[
-                                { value: 'Traveler-variant', label: 'Traveler-variant' }
+                                { value: 'Traveler-index', label: 'Traveler-index' }
                             ]}
                         />
                     </Box>

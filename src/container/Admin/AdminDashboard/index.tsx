@@ -10,6 +10,8 @@ import { DemoGender, DemoLocation, tableData } from '../../../utils/data';
 import { RecommendedTravelerSearchRowWrapper } from '../../../components/RecommendedTravelerSearchRowWrapper';
 import { SideBarFiltersWrapper } from '../../../components/SideBarFiltersWrapper';
 import { AdminSitePagination } from '../../../components/AdminSitePagination';
+import MultiSelectComponent from '../../../components/MultiSearch';
+import SelectComponent from '../../../components/Select';
 
 type InfiniteOnChangeType = {
 	label: any;
@@ -95,10 +97,14 @@ export function AdminDashboard() {
 
 	const [locations, setLocation] = useState<Array<{ label: any; value: number }>>([]);
 	const [gender, setGenders] = useState<Array<{ label: any; value: number }>>([]);
+
+	const [recommendedTravelerGender,setRecommendedTravelerGender] = useState<string[]>([])
+	const [recommendedTravelerLocation,setRecommendedTravelerLocation] = useState<string[]>([]);
 	const [query, setQuery] = useState<string>('');
 	const [doFetchNow, setDoFetchNow] = useState(false);
+	const [travelerStatus, setTravelerStatus] = useState('');
+	const [toTravelPlaces, setToTravelPlaces] = useState([]);
 	const sliceMenuData = 10;
-
 
 	const clearAllFilters = () => {
 		setPageNo('1');
@@ -108,18 +114,23 @@ export function AdminDashboard() {
 		setMinimumQuantity(undefined);
 		setTravelerGender([]);
         setTravelerLocation([]);
+		setToTravelPlaces([])
+		setTravelerStatus('');
 	};
 
 	// get product filter query
 	const { refetch: refetchTravelersByFilterQuery, isFetching } = useQuery(
 		[
 			'getRecommendations',
-			'recommendations',
+			'travelerRecommendations/search',
 			pageNo,
 			pageSize,
 			query,
-			travelerLocation,
-			travelerGender,
+			recommendedTravelerLocation,
+			recommendedTravelerGender,
+			travelerStatus,
+			toTravelPlaces,
+			minimumQuantity
 		],
 		async (params: QueryFunctionContext<any, any>) => {
 			return await travelerApi.getRecommendedTravelers({
@@ -129,6 +140,9 @@ export function AdminDashboard() {
 				query: params.queryKey[4],
 				travelerLocation: JSON.stringify(params.queryKey[5]),
 				travelerGender: JSON.stringify(params.queryKey[6]),
+				travelerStatus: params.queryKey[7],
+				toTravelPlaces: JSON.stringify(params.queryKey[8]),
+				minimumQuantity: params.queryKey[9]
 			});
 		},
 		{
@@ -146,6 +160,7 @@ export function AdminDashboard() {
 			]);
 		  
 			if (travelerInfo.status === 'fulfilled') {
+				console.log(travelerInfo.value.data?.data.hits);
 			  setTravelersData(travelerInfo.value.data?.data.hits);
 			  setTotalTravelers(travelerInfo.value.data?.data?.estimatedTotalHits);
 			}
@@ -175,25 +190,23 @@ export function AdminDashboard() {
 		pageSize,
 		isSearchBegin,
         travelerGender,
-        travelerLocation
+        travelerLocation,
+		travelerStatus,
+		toTravelPlaces
 	]);
 
 	// product mapping with head data
 	const filterRecommendedTravelerColumnMapping = useMemo(() => (travelerData: any) => {
 		return travelerData?.map((data: any, index: number) => {
+			console.log(JSON.stringify(data?.expectedVisitingPlaces?.join()));
 			return {
-				Image: data?.imageFront,
-				Name: data?.productStyle?.styleName,
-				Description:
-					data?.productStyle?.vendorDescription?.split('.')[0] || 'No description for this recommended traveler',
-                Gender: data?.productStyle?.description,
-				Color: {
-					name: data?.productColor?.name,
-					colorSwatch: data?.productColor?.colorSwatch ?? '',
-				},
-				MatchPercentage: data?.productSize?.symbol,
-				Status: '',
-				Visits: ''
+				Name: data?.firstName + data?.lastName,
+				Age: data?.age,
+				Location: data?.location,
+                Gender: data?.gender,
+				Status: data?.status || 'active',
+				PlacesToVisit: data?.expectedVisitingPlaces?.join(),
+				MateAge: `above ${+data?.expectedMateAge[0]} below ${+data?.expectedMateAge[0] + 10}`
 			};
 		});
 	}, [travelersData])
@@ -221,6 +234,9 @@ export function AdminDashboard() {
 				};
 			}),
 		]);
+		setRecommendedTravelerGender([
+			...data.map((c) => c.actualLabel || c.label),
+		])
 	}
 
 	const handleInfiniteLocationOnChange = (data: InfiniteOnChangeType) => {
@@ -234,6 +250,9 @@ export function AdminDashboard() {
 				};
 			}),
 		]);
+		setRecommendedTravelerLocation([
+			...data.map((c) => c.actualLabel || c.label),
+		])
 	}
 
 	return (
@@ -326,6 +345,25 @@ export function AdminDashboard() {
 									)
 								}
 								handleGenderOnChange={handleInfiniteGenderOnChange}
+							/>
+							<SelectComponent
+								data={['active', 'not-active']}
+								label={'Status'}
+								placeholder={'Select Status'}
+								handleChange={(data: any) => setTravelerStatus(data)}
+							/>
+							<MultiSelectComponent
+								cdata={[
+									{ label: 'United States', value: 'US' },
+									{ label: 'Great Britain', value: 'GB' },
+									{ label: 'Finland', value: 'FI' },
+									{ label: 'France', value: 'FR' },
+									{ label: 'Russia', value: 'RU' },
+									{ label: 'Pakistan', value: 'PK' }
+									]}
+								label={'Places'}
+								placeholder={'Places to visit'}
+								handleChange={(data: any) => setToTravelPlaces(data)}
 							/>
 						</RecommendedTravelerSideBarFilter>
 					</RecommendedTravelerSideBarContainer>

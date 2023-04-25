@@ -122,42 +122,6 @@ export function SideBarFiltersWrapper (props: SideBarFilterWrapper){
                     />
                 </Box>
             </Box>
-            <Box>
-                <Box mb={6} className={classes.label}>
-                    Places
-                </Box>
-                <Box>
-                    <InfiniteSelectComponent
-                        data={LocationData}
-                        value={selectLocationValue}
-                        className={LocationClassName}
-                        isLoading={LocationIsLoading}
-                        onChange={handleLocationOnChange}
-                        placeholder={LocationPlaceholder}
-                        sliceData={selectLocationSliceData}
-                        initialRenderData={initialLocationRenderData}
-                        isInitialHasMore={isInitialLocationHasMore}
-                    />
-                </Box>
-            </Box>
-            <Box>
-                <Box mb={6} className={classes.label}>
-                    Status
-                </Box>
-                <Box>
-                    <InfiniteSelectComponent
-                        data={GenderData}
-                        value={selectGenderValue}
-                        className={GenderClassName}
-                        isLoading={GenderIsLoading}
-                        onChange={handleGenderOnChange}
-                        placeholder={GenderPlaceholder}
-                        sliceData={selectGenderSliceData}
-                        initialRenderData={initialGenderRenderData}
-                        isInitialHasMore={isInitialGenderHasMore}
-                    />
-                </Box>
-            </Box>
         </>
     )
 }

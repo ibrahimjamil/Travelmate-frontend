@@ -40,7 +40,8 @@ const TableComponent = (props: TableComponentProps) => {
 
 	const { classes } = useStyles();
 	const renderSwitch = (data: any, key: string) => {
-		
+		console.log(key)
+		console.log(data[key])
 		switch (key) {
 			case 'Image':
 				return (

@@ -10,8 +10,11 @@ type RecommendedTravelerFetchingFiltersType = {
 	pageNo: string;
 	pageSize: string;
 	query: string;
-	travelerLocation: string,
-	travelerGender: string,
+	travelerLocation: string;
+	travelerGender: string;
+	travelerStatus: string;
+	toTravelPlaces: string;
+	minimumQuantity: number;
 };
 
 const getRecommendedTravelers = async (RecommendedTravelerFetchingFiltersTypeFetchingFilters: RecommendedTravelerFetchingFiltersType) => {
@@ -29,6 +32,9 @@ const getRecommendedTravelers = async (RecommendedTravelerFetchingFiltersTypeFet
 					query: RecommendedTravelerFetchingFiltersTypeFetchingFilters.query,
 					travelerLocation: RecommendedTravelerFetchingFiltersTypeFetchingFilters.travelerLocation,
 					travelerGender: RecommendedTravelerFetchingFiltersTypeFetchingFilters.travelerGender,
+					travelerStatus: RecommendedTravelerFetchingFiltersTypeFetchingFilters.travelerStatus,
+					toTravelPlaces: RecommendedTravelerFetchingFiltersTypeFetchingFilters.toTravelPlaces,
+					minimumQuantity: RecommendedTravelerFetchingFiltersTypeFetchingFilters.minimumQuantity
 				}
 			),
 		{

@@ -4,16 +4,16 @@ const links = [
       label: "Home"
     },
     {
-      link: '/about',
-      label: "About"
+      link: '/matched-travelers',
+      label: "Matched Travelers"
     },
     {
-      link: '/invite',
-      label: "Invite"
+      link: '/payments',
+      label: "Payment"
     },
     {
-      link: '/contact',
-      label: "Contact"
+      link: '/chats',
+      label: "Chat"
     },
     {
       link: '/login',
@@ -39,7 +39,7 @@ const DemoLocation = {
 
 const tableData={
   tableHead:[
-    'Name', 'Location', 'Gender', 'Status', 'Places To Visit'
+    'Name','Age', 'Location', 'Gender', 'Status', 'PlacesToVisit', 'MateAge'
   ]
 }
 
