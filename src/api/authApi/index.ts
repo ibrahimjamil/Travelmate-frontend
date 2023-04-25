@@ -13,7 +13,7 @@ type SignUpMutationType = {
     location: string;
     expectedMateAge: string[];
     expectedVisitingPlaces: string[];
-    travelLocations: string[];
+    travelLocationsPreference: string[];
     genderPreference: string[];
 }
 
@@ -47,7 +47,7 @@ const signUp = async (signUpFields: SignUpMutationType) => {
         location: signUpFields.location,
         expectedMateAge: JSON.stringify(signUpFields.expectedMateAge),
         expectedVisitingPlaces: JSON.stringify(signUpFields.expectedVisitingPlaces),
-        travelLocations: JSON.stringify(signUpFields.travelLocations),
+        travelLocationsPreference: JSON.stringify(signUpFields.travelLocationsPreference),
         genderPreference: JSON.stringify(signUpFields.genderPreference)
     })
 }

@@ -106,7 +106,7 @@ const Login = () => {
 
 	useEffect(() => {
 		if (!!localStorage.getItem('accessToken') && !!localStorage.getItem('idToken')) {
-			router.push('/app');
+			router.push('/app/admin');
 		}
 	}, []);
 
@@ -133,7 +133,7 @@ const Login = () => {
 						localStorage.setItem('idToken', signInResponse.IdToken);
 
 						setTimeout(() => {
-							router.push('/app');
+							router.push('/app/admin');
 						}, 2000);
 					},
 					onError: (err: any) => {

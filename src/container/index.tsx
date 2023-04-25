@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 import { Route, Switch as Routes } from 'react-router-dom';
 import AdminRoutes from '../routes/AdminRoutes';
 import { MantineProvider } from '@mantine/core';

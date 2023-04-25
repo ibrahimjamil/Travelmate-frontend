@@ -88,7 +88,7 @@ export function SideBarFiltersWrapper (props: SideBarFilterWrapper){
             </Title>
             <Box>
                 <Box mb={6} className={classes.label}>
-                    Location
+                    Traveler Location
                 </Box>
                 <Box>
                     <InfiniteSelectComponent

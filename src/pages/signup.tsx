@@ -23,7 +23,7 @@ type FormInputType = {
 type SignUpMutationType = {
 	expectedMateAge: string[];
 	expectedVisitingPlaces: string[];
-	travelLocations: string[];
+	travelLocationsPreference: string[];
 	genderPreference: string[];
 	email: string;
 	firstName: string;
@@ -136,7 +136,7 @@ const SignUp = () => {
 	const router = useRouter();
 	const [expectedVisitingPlaces, setExpectedVisitingPlaces] = useState([]);
 	const [expectedMateAge ,setExpectedMateAge] = useState([]);
-	const [travelLocations ,setTravelLocations] = useState([]);
+	const [travelLocationsPreference ,setTravelLocationsPreference] = useState([]);
 	const [genderPreference, setGenderPreference] = useState([]);
 	const [error, setError] = useState({
 		error: false,
@@ -168,10 +168,10 @@ const SignUp = () => {
 
 		if (firstName && lastName && password && email && checked) {
 
-			const signupData: SignUpMutationType = { firstName, lastName, email, password, type, age, gender, location, expectedMateAge,  expectedVisitingPlaces, travelLocations, genderPreference};
+			const signupData: SignUpMutationType = { firstName, lastName, email, password, type, age, gender, location, expectedMateAge,  expectedVisitingPlaces, travelLocationsPreference, genderPreference};
 
 			await signUpMutation.mutateAsync(
-				{ ...signupData, expectedVisitingPlaces, expectedMateAge, travelLocations, genderPreference },
+				{ ...signupData, expectedVisitingPlaces, expectedMateAge, travelLocationsPreference, genderPreference },
 				{
 					onSuccess: (data) => {
 						setError({
@@ -183,7 +183,7 @@ const SignUp = () => {
 						localStorage.setItem('idToken', signInResponse.IdToken);
 
 						setTimeout(() => {
-							router.push('/app');
+							router.push('/app/admin');
 						}, 2000);
 					},
 					onError: (err: any) => {
@@ -302,7 +302,7 @@ const SignUp = () => {
 						</Grid.Col>
 						<Grid.Col span={6}>
 							<FormInputWrapperComponent
-								label="Location"
+								label="Traveler Location"
 								name="location"
 								required={true}
 								placeholder="Enter your location"
@@ -313,12 +313,9 @@ const SignUp = () => {
 						<Grid.Col span={6}>
 							<MultiSelectComponent
 								cdata={[
-									{ label: 'United States', value: 'US' },
-									{ label: 'Great Britain', value: 'GB' },
-									{ label: 'Finland', value: 'FI' },
-									{ label: 'France', value: 'FR' },
-									{ label: 'Russia', value: 'RU' },
-									{ label: 'Pakistan', value: 'PK' }
+									{ label: 'United States', value: 'United States' },
+									{ label: 'Great Britain', value: 'Great Britain' },
+									{ label: 'Pakistan', value: 'Pakistan' }
 								  ]}
 								label={'Expected places'}
 								placeholder={'choose expected places to visit'}
@@ -346,8 +343,8 @@ const SignUp = () => {
 									{ label: 'international', value: 'international' },
 								  ]}
 								label={'Location preference'}
-								placeholder={'choose travel locations'}
-								handleChange={(data: any) => setTravelLocations(data)}
+								placeholder={'choose travel location preference'}
+								handleChange={(data: any) => setTravelLocationsPreference(data)}
 							/>
 						</Grid.Col>
 						<Grid.Col span={6}>

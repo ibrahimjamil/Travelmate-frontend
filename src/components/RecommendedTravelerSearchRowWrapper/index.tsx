@@ -77,21 +77,6 @@ export function RecommendedTravelerSearchRowWrapper (props: RecommendedTravelerS
                     }
                 />
             </Grid.Col>
-            <Grid.Col span={2}>
-                <Box mt={-23}>
-                    <div style={{ marginBottom: '8px', fontSize: '1em', fontWeight: 600 }}>
-                        {largeScreen  ? 'Desired Quantity' : 'Quantity'}
-                    </div>
-                    <NumberInput
-                        height={44}
-                        value={minimumQuantity}
-                        onChange={setMinimumQuantity}
-                        placeholder="Quantity"
-                        className={classes.minimumQtyBtn}
-                        min={0}
-                    />
-                </Box>
-            </Grid.Col>
             <Grid.Col span={largeScreen ? 4 : 7} sx={{display: 'flex', flexDirection: 'row', padding: "0px"}}>
                     <Button
                         size={'sm'}

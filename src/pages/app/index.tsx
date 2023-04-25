@@ -40,9 +40,6 @@ const AppIndex = () => {
 									<Admin/>
 								</>
 							</Route>
-							<Redirect
-								to={'/app/admin'}
-							/>
 						</Routes>
 					);
 				}}

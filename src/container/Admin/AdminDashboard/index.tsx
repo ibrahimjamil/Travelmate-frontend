@@ -198,12 +198,12 @@ export function AdminDashboard() {
 	// product mapping with head data
 	const filterRecommendedTravelerColumnMapping = useMemo(() => (travelerData: any) => {
 		return travelerData?.map((data: any, index: number) => {
-			console.log(JSON.stringify(data?.expectedVisitingPlaces?.join()));
 			return {
 				Name: data?.firstName + data?.lastName,
 				Age: data?.age,
 				Location: data?.location,
-                Gender: data?.gender,
+				OwnGender: data?.gender,
+                GenderPreference: data?.genderPreference?.join(),
 				Status: data?.status || 'active',
 				PlacesToVisit: data?.expectedVisitingPlaces?.join(),
 				MateAge: `above ${+data?.expectedMateAge[0]} below ${+data?.expectedMateAge[0] + 10}`
@@ -289,7 +289,7 @@ export function AdminDashboard() {
 								selectLocationSliceData={sliceMenuData}
 								LocationPlaceholder={"Select Location"}
 								LocationClassName={"globalInfiniteScrollCustom1"}
-								LocationIsLoading={!!travelerLocation.length ? false : true}
+								LocationIsLoading={false}
 								initialLocationRenderData={
 									!!travelerLocation?.length
 									? [
@@ -317,7 +317,7 @@ export function AdminDashboard() {
 								selectGenderSliceData={sliceMenuData}
 								GenderPlaceholder={"Select Gender"}
 								GenderClassName={"globalInfiniteScrollCustom2"}
-								GenderIsLoading={travelerGender.length > 1 ? false : true}
+								GenderIsLoading={false}
 								initialGenderRenderData={
 									!!travelerGender?.length
 										? [
@@ -354,14 +354,11 @@ export function AdminDashboard() {
 							/>
 							<MultiSelectComponent
 								cdata={[
-									{ label: 'United States', value: 'US' },
-									{ label: 'Great Britain', value: 'GB' },
-									{ label: 'Finland', value: 'FI' },
-									{ label: 'France', value: 'FR' },
-									{ label: 'Russia', value: 'RU' },
-									{ label: 'Pakistan', value: 'PK' }
+									{ label: 'United States', value: 'United States' },
+									{ label: 'Great Britain', value: 'Great Britain' },
+									{ label: 'Pakistan', value: 'Pakistan' }
 									]}
-								label={'Places'}
+								label={'Places To Visit'}
 								placeholder={'Places to visit'}
 								handleChange={(data: any) => setToTravelPlaces(data)}
 							/>
