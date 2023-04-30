@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useContext, useEffect, useMemo, useState } from 'react';
 import _ from 'lodash';
 import { AxiosResponse } from 'axios';
 import { QueryFunctionContext, QueryObserverResult, useQuery } from 'react-query';
@@ -199,6 +199,7 @@ export function AdminDashboard() {
 	const filterRecommendedTravelerColumnMapping = useMemo(() => (travelerData: any) => {
 		return travelerData?.map((data: any, index: number) => {
 			return {
+				Id: data?.id,
 				Name: data?.firstName + data?.lastName,
 				Age: data?.age,
 				Location: data?.location,

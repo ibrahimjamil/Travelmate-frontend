@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Modal, createStyles, Image, Grid, Title, ScrollArea, Table, Button } from '@mantine/core';
+import axios from 'axios';
 
 type ModalComponentProps = {
   open: boolean;
@@ -67,8 +68,40 @@ const RecommendedTravelerDescriptionModal = (props: ModalComponentProps) => {
   const [scrolled, setScrolled] = useState(false);
   const { classes, cx } = useStyles()
   const { open, close, data } = props || {};
-  useEffect(() => {
-  }, [open])
+
+  const handleMatchRecommendation = async (Id: any) => {
+    const currentUserPromise = axios.get('http://localhost:8000/api/user/', {
+      headers: {
+        authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+        idToken: localStorage.getItem('idToken') || '',
+      },
+    })
+
+    const itemUserPromise = axios.get('http://localhost:8000/api/user/one/', {
+      headers: {
+        authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+        idToken: localStorage.getItem('idToken') || '',
+      },
+      params: {
+        id: Id
+      }
+    })
+
+    const [currentUser, itemUser] = await Promise.all([currentUserPromise, itemUserPromise])
+    if (currentUser.data && itemUser.data) {
+      console.log(currentUser.data?.id, itemUser.data?.id)
+      await axios.post('http://localhost:8000/api/matchTraveler/addUsersMatch/', {
+        user1: currentUser.data?.id,
+        user2: itemUser.data?.id
+      },{
+        headers: {
+          authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+          idToken: localStorage.getItem('idToken') || '',
+        },
+      })
+      // window.location.href = 'http://localhost:3001/app/admin/matched-traveler';
+    }
+  }
   return (
       <Modal
         opened={open}
@@ -79,7 +112,7 @@ const RecommendedTravelerDescriptionModal = (props: ModalComponentProps) => {
         title={
           <Title order={3}>Recommended Traveler Data</Title>
         }
-        size="calc(60%)"
+        size="calc(90%)"
         className="product-modal"
       >
         <Grid pt={1} pr={0} mr={0}>
@@ -116,10 +149,10 @@ const RecommendedTravelerDescriptionModal = (props: ModalComponentProps) => {
                 </ScrollArea>
           </Grid.Col>
           <Grid.Col span={3}>
-            <Button>
-            <a href='/app/admin/matched-traveler'>
-              Match This Recommendation
-            </a>
+            <Button onClick={() => handleMatchRecommendation(data?.Id)}>
+              <a>
+                Match This Recommendation
+              </a>
             </Button>
           </Grid.Col>
 			  </Grid>
