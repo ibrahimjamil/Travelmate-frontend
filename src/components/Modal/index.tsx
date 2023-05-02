@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { Modal, createStyles, Image, Grid, Title, ScrollArea, Table, Button } from '@mantine/core';
 import axios from 'axios';
 
+
 type ModalComponentProps = {
   open: boolean;
   close: () => void;
@@ -88,18 +89,19 @@ const RecommendedTravelerDescriptionModal = (props: ModalComponentProps) => {
     })
 
     const [currentUser, itemUser] = await Promise.all([currentUserPromise, itemUserPromise])
-    if (currentUser.data && itemUser.data) {
-      console.log(currentUser.data?.id, itemUser.data?.id)
-      await axios.post('http://localhost:8000/api/matchTraveler/addUsersMatch/', {
-        user1: currentUser.data?.id,
-        user2: itemUser.data?.id
-      },{
-        headers: {
-          authorization: `Bearer ${localStorage.getItem('accessToken')}`,
-          idToken: localStorage.getItem('idToken') || '',
-        },
-      })
-      // window.location.href = 'http://localhost:3001/app/admin/matched-traveler';
+    if ((currentUser.data && itemUser.data)) {
+      if (currentUser?.data?.id !== itemUser?.data?.id) {
+        await axios.post('http://localhost:8000/api/matchTraveler/addUsersMatch/', {
+          user1: currentUser.data?.id,
+          user2: itemUser.data?.id
+        },{
+          headers: {
+            authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+            idToken: localStorage.getItem('idToken') || '',
+          },
+        })
+        window.location.href = 'http://localhost:3000/app/admin/matched-travelers';
+      }
     }
   }
   return (
@@ -119,9 +121,9 @@ const RecommendedTravelerDescriptionModal = (props: ModalComponentProps) => {
           <Grid.Col span={12}>
             <Image src={'/image.png'} radius="sm" height={200} fit="contain" withPlaceholder />
           </Grid.Col>
-          <Grid.Col span={12}>
+          <Grid.Col span={12} style={{ height: '270px !important'}}>
             <h1>Traveler Data</h1>
-            <ScrollArea sx={{ height: 300 }} onScrollPositionChange={({ y }) => setScrolled(y !== 0)}>
+            <ScrollArea sx={{  }} onScrollPositionChange={({ y }) => setScrolled(y !== 0)}>
                   <Table  className={classes.colorSizeTable} sx={{ minWidth: '100%' }} highlightOnHover striped>
                       <thead className={cx(classes.header, { [classes.scrolled]: scrolled })}>
                         <tr>

@@ -1,9 +1,10 @@
 import React from 'react'
+import Messenger from '../../components/Messenger/messenger'
 
 const Chat = () => {
   return (
     <div>
-      Chat
+      <Messenger/>
     </div>
   )
 }

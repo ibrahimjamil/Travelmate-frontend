@@ -1,10 +1,12 @@
-import React, { Fragment, useState, useContext } from 'react';
+import React, { Fragment, useState, useContext, useEffect } from 'react';
 import { createStyles, Header, Container, Group, Burger, Paper, Transition } from '@mantine/core';
 import { useBooleanToggle } from '@mantine/hooks';
 import emotionStyled from '@emotion/styled';
 import { useRouter } from 'next/router';
 import { UserContext, UserType } from '../../guards/authGuard';
 import InviteUserModal from './InviteUserModal';
+import { useLocation } from "react-router-dom";
+
 
 const HEADER_HEIGHT = 60;
 
@@ -101,7 +103,17 @@ export function GenericHeader(props: GenericHeaderProps) {
 	const { classes, cx } = useStyles();
 	const [active, setActive] = useState(links[0].link);
 	const [opened, toggleOpened] = useBooleanToggle(false);
+	const location = useLocation();
 
+	useEffect(() => {
+		const parts = location.pathname.split("/");
+  		const word = parts[parts.length - 1];
+		if (location.pathname === '/app/admin') {
+			setActive(`/`);
+		}else{
+			setActive(`/${word}`)
+		}
+	}, [])
 	const items = links.map((link) => {
 		if (link.label === 'Login') {
 			if (!!user?.id) {
@@ -168,6 +180,7 @@ export function GenericHeader(props: GenericHeaderProps) {
 						event.preventDefault();
 						setActive(link.link);
 						toggleOpened(false);
+						window.location.href = `http://localhost:3000/app/admin/${link.link}`
 					}}
 				>
 					{link.label}

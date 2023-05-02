@@ -1,7 +1,7 @@
-import { Table, Image, Grid, Badge, createStyles, Box} from '@mantine/core';
-import { memo, useContext, useState } from 'react';
+import { Table, Image, Grid, createStyles, Box} from '@mantine/core';
+import { memo, useEffect, useState } from 'react';
 import RecommendedTravelerDescriptionModal from '../Modal/index';
-import { UserContext, UserType } from '../../guards/authGuard';
+import axios from 'axios';
 
 type TableComponentProps = {
 	striped?: boolean;
@@ -30,6 +30,7 @@ const useStyles = createStyles(() => ({
 const TableComponent = (props: TableComponentProps) => {
 	const [openModal, setOpenModal] = useState(false);
 	const [selectedRow, setSelectedRow] = useState({});
+	const [currentUser, setCurrentUser] = useState<any>();
 	const {
 		striped,
 		tableHead,
@@ -60,7 +61,18 @@ const TableComponent = (props: TableComponentProps) => {
 		setOpenModal(false);
 		setSelectedRow({});
 	};
-
+	useEffect(() => {
+		async function setUser() {
+			const currentUserPromise = await axios.get('http://localhost:8000/api/user/', {
+				headers: {
+					authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+					idToken: localStorage.getItem('idToken') || '',
+				},
+			})
+			setCurrentUser(currentUserPromise.data);
+		}
+		setUser()
+	}, [])
 	return (
 		<>
 			{!!tableBodyData?.length ? (
@@ -92,25 +104,28 @@ const TableComponent = (props: TableComponentProps) => {
 							</tr>
 						</thead>
 						<tbody>
-							{tableBodyData?.map((data: any, outerIndex: number) => {
-								return (
-									<tr
-										className={classes.tableRow}
-										key={outerIndex}
-										onClick={() => openProductDescriptionModal(data)}
-									>
-										{Object.keys(data).map((key: any, index) => {
-											if (tableHead.includes(key)) {
-												return (
-													<td style={{ borderBottom: 'none', fontSize: '1.2em' }} key={index}>
-														{renderSwitch(data, key)}
-													</td>
-												);
-											}
-										})}
-									</tr>
-								);
-							})}
+							{currentUser?.id ? tableBodyData?.map((data: any, outerIndex: number) => {
+								if (data['Id'] !== currentUser?.id){
+									return (
+										<tr
+											className={classes.tableRow}
+											key={outerIndex}
+											onClick={() => openProductDescriptionModal(data)}
+										>
+											{Object.keys(data).map((key: any, index) => {
+												if (tableHead.includes(key)) {
+													return (
+														<td style={{ borderBottom: 'none', fontSize: '1.2em' }} key={index}>
+															{renderSwitch(data, key)}
+														</td>
+													);
+												}
+											})}
+										</tr>
+									);
+								}
+							}) : <tr className={classes.tableRow}
+							onClick={() => {}}><td>Loading...</td></tr>}
 						</tbody>
 					</Table>
 				</>

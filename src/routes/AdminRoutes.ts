@@ -12,12 +12,12 @@ const AdminRoutes = [
 		component: Payment,
 	},
 	{
-		path: BASE_URL + '/chat',
+		path: BASE_URL + '/chats',
 		title: 'Matched Traveler Chat',
 		component: Chat,
 	},
 	{
-		path: BASE_URL + '/matched-traveler',
+		path: BASE_URL + '/matched-travelers',
 		title: 'Matched Traveler',
 		component: MatchedTraveler,
 	},
