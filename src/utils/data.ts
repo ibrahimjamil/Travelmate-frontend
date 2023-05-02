@@ -8,6 +8,10 @@ const links = [
       label: "Matched Travelers"
     },
     {
+      link: '/vendors',
+      label: "Vendors"
+    },
+    {
       link: '/payments',
       label: "Payment"
     },

@@ -2,20 +2,19 @@ import { Paper, Text, Button } from '@mantine/core'
 import React from 'react'
 import { StyledLinks } from '../../container/Payment';
 
-const MatchedTravelers = (props: any) => {
-    const {MT} = props;
+const Vendors = () => {
 
   return (
     <>
-        {MT?.map((mt: any, index: any) => (
+    <div style={{
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center'
+      }}>
+        {[{}, {}, {}, {}]?.map((mt: any, index: any) => (
             <Paper key={index} withBorder shadow="lg" p="md" style={{width: '50%', marginBottom: '20px', marginTop: '20px', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}>
-              <Text style={{textAlign: 'center', marginBottom: '20px'}}>
-                  {'Name:  ' +mt?.recommendedTravelers[0]?.firstName + ' ' + mt?.recommendedTravelers[0]?.lastName || ''}<br/>
-                  {'Age:  ' + mt?.recommendedTravelers[0]?.age || ''}<br/>
-                  {'Email:  ' + mt?.recommendedTravelers[0]?.email || ''}<br/>
-                  {'Gender:  ' + mt?.recommendedTravelers[0]?.gender || ''}<br/>
-                  {'Location:  ' + mt?.recommendedTravelers[0]?.location || ''}<br/>
-              </Text>
+              <Text style={{textAlign: 'center', marginBottom: '20px'}}>Vendor Api Item</Text>
               <StyledLinks
                 cancelButton
                 sx={{
@@ -29,15 +28,16 @@ const MatchedTravelers = (props: any) => {
                 }}
                 style={{width: '30%'}} 
                 onClick={() => {
-                  window.location.href = 'http://localhost:3000/app/admin/chats'
+                  window.location.href = 'http://localhost:3000/app/admin/payments'
                 }}
                 >
-                 {'Chat Now'}
+                 {'checkout'}
               </StyledLinks>
             </Paper>
         ))}
+      </div>
     </>
   )
 }
 
-export default MatchedTravelers
+export default Vendors;

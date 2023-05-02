@@ -1,7 +1,6 @@
-import { useContext, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import axios from "axios";
-import { Text, Title } from '@mantine/core';
-import { io } from "socket.io-client";
+import { Title } from '@mantine/core'
 import { useSocket } from "../../context/socket";
 
 export default function Messenger() {

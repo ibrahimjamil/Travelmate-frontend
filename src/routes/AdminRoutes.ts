@@ -1,3 +1,4 @@
+import Vendors from "../components/Vendor";
 import {AdminDashboard} from "../container/Admin/AdminDashboard";
 import Chat from "../container/Chat";
 import MatchedTraveler from "../container/MatchedTraveler";
@@ -7,7 +8,12 @@ export const BASE_URL = '/app/admin';
 
 const AdminRoutes = [
 	{
-		path: BASE_URL + '/payment',
+		path: BASE_URL + '/vendors',
+		title: 'Vendors Api',
+		component: Vendors,
+	},
+	{
+		path: BASE_URL + '/payments',
 		title: 'Matched Traveler payment',
 		component: Payment,
 	},
