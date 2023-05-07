@@ -1,5 +1,6 @@
-import { Box, Button, createStyles, Grid, NumberInput, SegmentedControl } from "@mantine/core";
+import { Box, createStyles, Grid, NumberInput, SegmentedControl } from "@mantine/core";
 import { useMediaQuery } from "@mantine/hooks";
+import { Button } from "@mui/material";
 import { useState } from "react";
 import InputWrapper from "../InputWrapper";
 
@@ -78,24 +79,20 @@ export function RecommendedTravelerSearchRowWrapper (props: RecommendedTravelerS
                 />
             </Grid.Col>
             <Grid.Col span={largeScreen ? 4 : 7} sx={{display: 'flex', flexDirection: 'row', padding: "0px"}}>
-                    <Button
-                        size={'sm'}
-                        className={classes.primaryButton}
-                        onClick={() => handleSetIsSearchBegin(searchParam)}
-                    >
-                        Search
-                    </Button>
-                    <Button
-                        size={'sm'}
-                        className={classes.primaryButton}
-                        onClick={() => {
+                    <Button style={{marginRight: '10px'}} variant='outlined' onClick={() => handleSetIsSearchBegin(searchParam)}>
+								<a>
+                                    Search
+								</a>
+							</Button>
+                            <Button variant='outlined' style={{marginRight: '10px'}} onClick={() => {
                                 setSearchProduct('')
                                 clearAllFilters();
                             }
-                        }
-                    >
-                        Clear All
-                    </Button>
+                        }>
+								<a>
+                                    Clear All
+								</a>
+							</Button>
             <Box mt={-23}>
                         <div style={{ marginBottom: '8px', fontSize: '1em', fontWeight: 600 }}>
                             {'Recommended Index'}

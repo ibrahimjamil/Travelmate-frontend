@@ -8,6 +8,7 @@ import FormInputWrapperComponent from '../components/FormInputWrapper';
 import { getStrength, PasswordRequirement, requirements } from '../components/Password';
 import { SERVER_DOWN } from '../constants/messages';
 import MultiSelectComponent from '../components/MultiSearch';
+import {Button as MUIButton} from '@mui/material'
 
 type FormInputType = {
 	email: string;
@@ -77,7 +78,7 @@ const useStyles = createStyles(() => ({
 		fontSize: '30px',
 	},
 	signUpTitleContainer: {
-		height: '80px',
+		height: '40px',
 	},
 	alertInfoContainer: {
 		height: 'auto',
@@ -382,6 +383,13 @@ const SignUp = () => {
 							) : (
 								''
 							)}
+						</Grid.Col>
+						<Grid.Col span={6}>
+							<MUIButton variant='outlined' onClick={() => {}}>
+								<a>
+                  					More Filters Addition
+								</a>
+							</MUIButton>
 						</Grid.Col>
 						<Grid.Col span={6}></Grid.Col>
 						<Grid.Col span={6}>

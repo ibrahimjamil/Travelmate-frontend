@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
-import { Modal, createStyles, Image, Grid, Title, ScrollArea, Table, Button } from '@mantine/core';
+import { Modal, createStyles, Image, Grid, Title, ScrollArea, Table } from '@mantine/core';
 import axios from 'axios';
+import { Button } from '@mui/material';
 
 
 type ModalComponentProps = {
@@ -114,7 +115,7 @@ const RecommendedTravelerDescriptionModal = (props: ModalComponentProps) => {
         title={
           <Title order={3}>Recommended Traveler Data</Title>
         }
-        size="calc(90%)"
+        size="calc(70%)"
         className="product-modal"
       >
         <Grid pt={1} pr={0} mr={0}>
@@ -150,12 +151,12 @@ const RecommendedTravelerDescriptionModal = (props: ModalComponentProps) => {
                     </Table>
                 </ScrollArea>
           </Grid.Col>
-          <Grid.Col span={3}>
-            <Button onClick={() => handleMatchRecommendation(data?.Id)}>
-              <a>
-                Match This Recommendation
-              </a>
-            </Button>
+          <Grid.Col span={5}>
+          <Button variant='outlined' onClick={() => handleMatchRecommendation(data?.Id)}>
+								<a>
+                  Match This Recommendation
+								</a>
+							</Button>
           </Grid.Col>
 			  </Grid>
       </Modal>

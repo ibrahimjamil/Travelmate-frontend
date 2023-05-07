@@ -3,8 +3,6 @@ import { createStyles, Grid, NumberInput, Pagination } from "@mantine/core";
 const useStyles = createStyles(() => ({
     pagination: {
 		width: '100%',
-		marginTop: '10px',
-		marginBottom: '10px',
 		justifyContent: 'center',
 		paddingRight: '20px',
 	},

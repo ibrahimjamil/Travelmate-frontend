@@ -82,7 +82,7 @@ const TableComponent = (props: TableComponentProps) => {
 						verticalSpacing={verticalSpacing}
 						striped={striped ? striped : false}
 						highlightOnHover
-						style={{ padding: '100px' }}
+						style={{ padding: '100px', height: '80%' }}
 					>
 						<thead
 							style={{
@@ -124,8 +124,7 @@ const TableComponent = (props: TableComponentProps) => {
 										</tr>
 									);
 								}
-							}) : <tr className={classes.tableRow}
-							onClick={() => {}}><td>Loading...</td></tr>}
+							}) : <></>}
 						</tbody>
 					</Table>
 				</>

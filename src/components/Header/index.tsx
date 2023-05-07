@@ -6,6 +6,8 @@ import { useRouter } from 'next/router';
 import { UserContext, UserType } from '../../guards/authGuard';
 import InviteUserModal from './InviteUserModal';
 import { useLocation } from "react-router-dom";
+import { Badge, IconButton } from '@mui/material';
+import MailIcon from '@mui/icons-material/Mail';
 
 
 const HEADER_HEIGHT = 60;
@@ -170,6 +172,17 @@ export function GenericHeader(props: GenericHeaderProps) {
 					{link.label}
 				</a>
 			);
+		} else if(link.label === 'notification'){
+			return (
+				<IconButton>
+					<Badge badgeContent={4} color="primary" anchorOrigin={{
+						vertical: 'top',
+						horizontal: 'left',
+					}}>
+						<MailIcon color="action" />
+					</Badge>
+				</IconButton>
+			)
 		} else {
 			return (
 				<a

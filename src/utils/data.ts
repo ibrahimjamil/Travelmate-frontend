@@ -4,6 +4,10 @@ const links = [
       label: "Home"
     },
     {
+      link: '/matched-builder',
+      label: "Matched Builder"
+    },
+    {
       link: '/matched-travelers',
       label: "Matched Travelers"
     },
@@ -26,6 +30,10 @@ const links = [
     {
       link: '/logout',
       label: "Logout"
+    },
+    {
+      link: '/',
+      label: 'notification'
     }
   ]
 

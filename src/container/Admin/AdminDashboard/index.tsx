@@ -12,6 +12,7 @@ import { SideBarFiltersWrapper } from '../../../components/SideBarFiltersWrapper
 import { AdminSitePagination } from '../../../components/AdminSitePagination';
 import MultiSelectComponent from '../../../components/MultiSearch';
 import SelectComponent from '../../../components/Select';
+import { Button } from '@mui/material';
 
 type InfiniteOnChangeType = {
 	label: any;
@@ -46,7 +47,7 @@ const FilterContainer = emotionStyled.div`
 const RecommendedTravelerTitle = emotionStyled.div`
   color: #505050;
   font-weight: 500;
-  font-size: 1.65em;
+  font-size: 1.3em;
   padding-left: 35px !important;
 `;
 
@@ -259,9 +260,9 @@ export function AdminDashboard() {
 	return (
 		<>
 			<FilterContainer>
-				<Group align="center" mb={50} pt={20} sx={{ width: '100%' }}>
+				<Group align="center" mb={50} pt={20} sx={{ width: '100%', height: '7vh' }}>
 					<RecommendedTravelerTitle>Recommended Traveler Search</RecommendedTravelerTitle>
-					<Grid align="center" justify={"start"} columns={12}  sx={{ width: '100%', paddingLeft: "35px", paddingTop: '5px'}}>
+					<Grid align="center" justify={"start"} columns={12}  sx={{ width: '100%', paddingLeft: "35px"}}>
 						<RecommendedTravelerSearchRowWrapper
 							minimumQuantity={minimumQuantity}
 							setMinimumQuantity={setMinimumQuantity}
@@ -363,6 +364,22 @@ export function AdminDashboard() {
 								placeholder={'Places to visit'}
 								handleChange={(data: any) => setToTravelPlaces(data)}
 							/>
+							<MultiSelectComponent
+								cdata={[
+									{ label: 'United States', value: 'United States' },
+									{ label: 'Great Britain', value: 'Great Britain' },
+									{ label: 'Pakistan', value: 'Pakistan' }
+									]}
+								label={'Religion'}
+								placeholder={'Religion'}
+								handleChange={(data: any) => setToTravelPlaces(data)}
+							/>
+							<Button variant='outlined' onClick={() => {}}>
+								<a>
+									Match Builder
+								</a>
+							</Button>
+							<p><span style={{color: '#1976d2'}}>Note</span> match builder is history storing capability of additional filters so you can use in your next session</p>
 						</RecommendedTravelerSideBarFilter>
 					</RecommendedTravelerSideBarContainer>
 
@@ -416,9 +433,7 @@ export function AdminDashboard() {
 						)}
 					</RecommendedTravelerTableContainer>
 				</RecommendedTravelerContainer>
-			</FilterContainer>
-
-			<AdminSitePagination
+				<AdminSitePagination
 				pageSizeValue={Number(pageSize)}
 				pageSizeOnChange={handlePageSizeChange}
 				paginationTotal={Math.ceil(totalTravelers / parseInt(pageSize))}
@@ -441,6 +456,7 @@ export function AdminDashboard() {
 					}
 				}}
 			/>
+			</FilterContainer>
 		</>
 	);
 }
