@@ -191,7 +191,6 @@ const Login = () => {
 								required={true}
 								className={classes.inputWrapper}
 								register={register}
-								error={!!errorFields?.includes('email') ? 'Email field is not valid' : ''}
 							/>
 						</Grid.Col>
 					</Grid.Col>
