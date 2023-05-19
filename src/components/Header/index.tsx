@@ -175,7 +175,7 @@ export function GenericHeader(props: GenericHeaderProps) {
 		} else if(link.label === 'notification'){
 			return (
 				<IconButton>
-					<Badge badgeContent={4} color="primary" anchorOrigin={{
+					<Badge badgeContent={1} color="primary" anchorOrigin={{
 						vertical: 'top',
 						horizontal: 'left',
 					}}>

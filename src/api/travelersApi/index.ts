@@ -15,6 +15,8 @@ type RecommendedTravelerFetchingFiltersType = {
 	travelerStatus: string;
 	toTravelPlaces: string;
 	minimumQuantity: number;
+	religion: string;
+	ridePreference: string,
 };
 
 const getRecommendedTravelers = async (RecommendedTravelerFetchingFiltersTypeFetchingFilters: RecommendedTravelerFetchingFiltersType) => {
@@ -34,7 +36,9 @@ const getRecommendedTravelers = async (RecommendedTravelerFetchingFiltersTypeFet
 					travelerGender: RecommendedTravelerFetchingFiltersTypeFetchingFilters.travelerGender,
 					travelerStatus: RecommendedTravelerFetchingFiltersTypeFetchingFilters.travelerStatus,
 					toTravelPlaces: RecommendedTravelerFetchingFiltersTypeFetchingFilters.toTravelPlaces,
-					minimumQuantity: RecommendedTravelerFetchingFiltersTypeFetchingFilters.minimumQuantity
+					minimumQuantity: RecommendedTravelerFetchingFiltersTypeFetchingFilters.minimumQuantity,
+					religion: RecommendedTravelerFetchingFiltersTypeFetchingFilters.religion,
+					ridePreference: RecommendedTravelerFetchingFiltersTypeFetchingFilters.ridePreference
 				}
 			),
 		{

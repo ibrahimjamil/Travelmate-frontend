@@ -5,11 +5,14 @@ import {
   Box,
   Button,
   CircularProgress,
-  Typography
+  Typography,
+  Alert
 } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { useState } from 'react';
 import _ from 'lodash';
+import axios from 'axios';
+import AppConfig from '../../constants/AppConfig';
 interface StyledLinksProps {
   actionButton?: boolean;
   cancelButton?: boolean;
@@ -51,6 +54,7 @@ const Payment = () => {
   const [cardNumber, setCardNumber] = useState('');
   const [expireMonth, setExpireMonth] = useState('');
   const [expireYear, setExpireYear] = useState('');
+  const [success, setSuccess] = useState(false);
 
   const submitHandler = () => {
     if (
@@ -74,6 +78,20 @@ const Payment = () => {
     //   expireYear,
     // });
   };
+
+  const handlePayment = async () => {
+    const data = await axios.post(process.env.APP_URL + 'payment/create-checkout-session')
+    if (data.data) {
+      const error = data.data.error;
+      if (!error){
+        setSuccess(true)
+
+        setTimeout(() => {
+          setSuccess(false);
+        }, 5000)
+      }
+    }
+  }
 
   return (
     <Grid
@@ -131,7 +149,7 @@ const Payment = () => {
             <TextField
               sx={{ width: '100%', borderColor: '#e0e0e0', mb: 3 }}
               size="small"
-              placeholder="DD/MM/YYYY"
+              placeholder="*****************"
               value={cardNumber}
               onChange={(e) => setCardNumber(e.target.value)}
             />
@@ -180,7 +198,7 @@ const Payment = () => {
             />
           </Grid>
         </Box>
-
+        {success && <Alert sx={{ marginBottom: '10px' }} severity="success">Payment has been successful!</Alert>}
         <Box>
           <StyledLinks
             cancelButton
@@ -208,6 +226,7 @@ const Payment = () => {
                 lg: 'fit-content',
               },
             }}
+            onClick={() => handlePayment()}
           >
             Pay Now
           </StyledLinks>

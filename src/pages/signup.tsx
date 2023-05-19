@@ -2,13 +2,14 @@ import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { useMutation } from 'react-query';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { Grid, createStyles, Text, Checkbox, Button, PasswordInput, Loader, Progress, MultiSelect } from '@mantine/core';
+import { Grid, createStyles, Text, Checkbox, Button, PasswordInput, Loader, Progress, MultiSelect, Modal, Title } from '@mantine/core';
 import { authApi } from '../api';
 import FormInputWrapperComponent from '../components/FormInputWrapper';
 import { getStrength, PasswordRequirement, requirements } from '../components/Password';
 import { SERVER_DOWN } from '../constants/messages';
 import MultiSelectComponent from '../components/MultiSearch';
 import {Button as MUIButton} from '@mui/material'
+import SelectComponent from '../components/Select';
 
 type FormInputType = {
 	email: string;
@@ -34,6 +35,9 @@ type SignUpMutationType = {
 	age: string;
 	gender: string;
 	location: string;
+	religion: string;
+	personQty: string;
+	ridePreference: string[];
 };
 
 type SignInMutationResponse = {
@@ -139,6 +143,8 @@ const SignUp = () => {
 	const [expectedMateAge ,setExpectedMateAge] = useState([]);
 	const [travelLocationsPreference ,setTravelLocationsPreference] = useState([]);
 	const [genderPreference, setGenderPreference] = useState([]);
+	const [religion, setReligion] = useState('');
+	const [personQty, setPersonQty] = useState('');
 	const [error, setError] = useState({
 		error: false,
 		message: '',
@@ -148,6 +154,8 @@ const SignUp = () => {
 	const { register, handleSubmit, formState, setValue } = useForm<FormInputType>({
 		mode: 'onChange',
 	});
+	const [additionalFilters, setAdditionalFilterOpen] = useState(false);
+	const [ridePreference, setRidePreference] = useState([]);
 
 	const [password, setPassword] = useState('');
 	const strength = getStrength(password);
@@ -169,7 +177,7 @@ const SignUp = () => {
 
 		if (firstName && lastName && password && email && checked) {
 
-			const signupData: SignUpMutationType = { firstName, lastName, email, password, type, age, gender, location, expectedMateAge,  expectedVisitingPlaces, travelLocationsPreference, genderPreference};
+			const signupData: SignUpMutationType = { firstName, lastName, email, password, type, age, gender, location, expectedMateAge,  expectedVisitingPlaces, travelLocationsPreference, genderPreference, religion, personQty, ridePreference};
 
 			await signUpMutation.mutateAsync(
 				{ ...signupData, expectedVisitingPlaces, expectedMateAge, travelLocationsPreference, genderPreference },
@@ -385,12 +393,60 @@ const SignUp = () => {
 							)}
 						</Grid.Col>
 						<Grid.Col span={6}>
-							<MUIButton variant='outlined' onClick={() => {}}>
+							<MUIButton variant='outlined' onClick={() => setAdditionalFilterOpen(true)}>
 								<a>
                   					More Filters Addition
 								</a>
 							</MUIButton>
 						</Grid.Col>
+						<Modal
+							opened={additionalFilters}
+							onClose={() => {
+								setAdditionalFilterOpen(false)
+							}}
+							centered={true}
+							title={
+								<Title order={3}>More Filters</Title>
+							}
+							size="calc(30%)"
+						>
+							<Grid>
+								<Grid.Col span={12}>
+									<SelectComponent
+										data={['Muslim', 'Christianity', 'Hinduism']}
+										label={'Religion'}
+										placeholder={'Select Religion'}
+										handleChange={(data: any) => setReligion(data)}
+									/>
+								</Grid.Col>
+								<Grid.Col span={12}>
+									<SelectComponent
+										data={['1', '2', '3', '4', '5']}
+										label={'How many Persons'}
+										placeholder={'Expected Persons'}
+										handleChange={(data: any) => setPersonQty(data)}
+									/>
+								</Grid.Col>
+								<Grid.Col span={12}>
+									<MultiSelectComponent
+										cdata={[
+											{ label: 'bike', value: 'bike' },
+											{ label: 'car', value: 'car' },
+											{ label: 'bus', value: 'bus' },
+											{ label: 'airplane', value: 'airplane' },
+										]}
+										label={'Select Ride'}
+										placeholder={'choose ride preference'}
+										handleChange={(data: any) => setRidePreference(data)}
+									/>
+								</Grid.Col>
+								<Grid.Col span={12}>
+									<Button onClick={() => setAdditionalFilterOpen(false)}>
+										Apply
+									</Button>
+								</Grid.Col>
+							</Grid>
+						</Modal>
 						<Grid.Col span={6}></Grid.Col>
 						<Grid.Col span={6}>
 							<Grid className={classes.signUpBtnContainer}>

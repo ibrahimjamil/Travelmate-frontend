@@ -3,7 +3,7 @@ import _ from 'lodash';
 import { AxiosResponse } from 'axios';
 import { QueryFunctionContext, QueryObserverResult, useQuery } from 'react-query';
 import emotionStyled from '@emotion/styled';
-import { Group, Skeleton, Table, Grid, createStyles } from '@mantine/core';
+import { Group, Skeleton, Table, Grid, createStyles, Modal, Title, Card } from '@mantine/core';
 import { travelerApi } from '../../../api';
 import TableComponent from '../../../components/Table';
 import { DemoGender, DemoLocation, tableData } from '../../../utils/data';
@@ -13,6 +13,11 @@ import { AdminSitePagination } from '../../../components/AdminSitePagination';
 import MultiSelectComponent from '../../../components/MultiSearch';
 import SelectComponent from '../../../components/Select';
 import { Button } from '@mui/material';
+import Accordion from '@mui/material/Accordion';
+import AccordionSummary from '@mui/material/AccordionSummary';
+import AccordionDetails from '@mui/material/AccordionDetails';
+import Typography from '@mui/material/Typography';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
 type InfiniteOnChangeType = {
 	label: any;
@@ -95,6 +100,8 @@ export function AdminDashboard() {
     const [travelerGender, setTravelerGender] = useState<string[]>(DemoGender.data);
     const [travelerLocation, setTravelerLocation] = useState<string[]>(DemoLocation.data);
 	const [minimumQuantity, setMinimumQuantity] = useState<number | undefined>();
+	const [religion, setReligion] = useState('');
+	const [ridePreference, setRidePreference] = useState([]);
 
 	const [locations, setLocation] = useState<Array<{ label: any; value: number }>>([]);
 	const [gender, setGenders] = useState<Array<{ label: any; value: number }>>([]);
@@ -105,6 +112,7 @@ export function AdminDashboard() {
 	const [doFetchNow, setDoFetchNow] = useState(false);
 	const [travelerStatus, setTravelerStatus] = useState('');
 	const [toTravelPlaces, setToTravelPlaces] = useState([]);
+	const [matchBuilder, setMatchBuilder] = useState(false);
 	const sliceMenuData = 10;
 
 	const clearAllFilters = () => {
@@ -131,7 +139,9 @@ export function AdminDashboard() {
 			recommendedTravelerGender,
 			travelerStatus,
 			toTravelPlaces,
-			minimumQuantity
+			minimumQuantity,
+			religion,
+			ridePreference
 		],
 		async (params: QueryFunctionContext<any, any>) => {
 			return await travelerApi.getRecommendedTravelers({
@@ -143,7 +153,9 @@ export function AdminDashboard() {
 				travelerGender: JSON.stringify(params.queryKey[6]),
 				travelerStatus: params.queryKey[7],
 				toTravelPlaces: JSON.stringify(params.queryKey[8]),
-				minimumQuantity: params.queryKey[9]
+				minimumQuantity: params.queryKey[9],
+				religion: params.queryKey[10],
+				ridePreference: JSON.stringify(params.queryKey[11])
 			});
 		},
 		{
@@ -206,6 +218,8 @@ export function AdminDashboard() {
 				Location: data?.location,
 				OwnGender: data?.gender,
                 GenderPreference: data?.genderPreference?.join(),
+				RidePreference: data?.ridePreference?.join(),
+				Religion: data?.religion,
 				Status: data?.status || 'active',
 				PlacesToVisit: data?.expectedVisitingPlaces?.join(),
 				MateAge: `above ${+data?.expectedMateAge[0]} below ${+data?.expectedMateAge[0] + 10}`
@@ -374,11 +388,250 @@ export function AdminDashboard() {
 								placeholder={'Religion'}
 								handleChange={(data: any) => setToTravelPlaces(data)}
 							/>
-							<Button variant='outlined' onClick={() => {}}>
+							<Button variant='outlined' onClick={() => setMatchBuilder(true)}>
 								<a>
 									Match Builder
 								</a>
 							</Button>
+							<Modal
+								opened={matchBuilder}
+								onClose={() => {
+									setMatchBuilder(false)
+								}}
+								centered={true}
+								title={
+									<Title order={3}>Match Builder</Title>
+								}
+								size="calc(70%)"
+							>
+								<Grid>
+									<h1>More Filters</h1>
+									<Grid.Col span={12}>
+										<SelectComponent
+											data={['Muslim', 'Christianity', 'Hinduism']}
+											label={'Religion Pref'}
+											placeholder={'Select Religion'}
+											handleChange={(data: any) => setReligion(data)}
+										/>
+									</Grid.Col>
+									<Grid.Col span={12}>
+										<MultiSelectComponent
+											cdata={[
+												{ label: 'bike', value: 'bike' },
+												{ label: 'car', value: 'car' },
+												{ label: 'bus', value: 'bus' },
+												{ label: 'airplane', value: 'airplane' },
+											]}
+											label={'Choose Ride Pref'}
+											placeholder={'choose ride preference'}
+											handleChange={(data: any) => setRidePreference(data)}
+										/>
+									</Grid.Col>
+									<Grid.Col span={12}>
+											<Button variant='outlined' onClick={() => setMatchBuilder(false)}>
+												Apply
+											</Button>
+									</Grid.Col>
+									<Grid.Col span={12}>
+										<h4>
+											User Specific Search History
+										</h4>
+
+										<Accordion>
+										<AccordionSummary
+										expandIcon={<ExpandMoreIcon />}
+										aria-controls="panel1a-content"
+										id="panel1a-header"
+										>
+										<Typography>1- {new Date().toString()}</Typography>
+										</AccordionSummary>
+										<AccordionDetails>
+										<Typography>
+										 This search history include previous collected search.
+										</Typography>
+										<Typography>
+											Search:
+										</Typography>
+										<Typography>
+											Religion: 
+										</Typography>
+										<Typography>
+											Status: 
+										</Typography>
+										<Typography>
+											Gender: 
+										</Typography>
+										<Typography>
+											TravelLocation: 
+										</Typography>
+										<Typography>
+											PLacesToVisit: 
+										</Typography>
+										<Typography>
+											RidePreference: 
+										</Typography>
+										<Button variant='outlined'>
+											Apply this search
+										</Button>
+										</AccordionDetails>
+									</Accordion>
+
+									<Accordion>
+										<AccordionSummary
+										expandIcon={<ExpandMoreIcon />}
+										aria-controls="panel1a-content"
+										id="panel1a-header"
+										>
+										<Typography>2- {new Date().toString()}</Typography>
+										</AccordionSummary>
+										<AccordionDetails>
+										<Typography>
+											This search history include previous collected search.
+										</Typography>
+										<Typography>
+											Search:
+										</Typography>
+										<Typography>
+											Religion: 
+										</Typography>
+										<Typography>
+											Status: 
+										</Typography>
+										<Typography>
+											Gender: 
+										</Typography>
+										<Typography>
+											TravelLocation: 
+										</Typography>
+										<Typography>
+											PLacesToVisit: 
+										</Typography>
+										<Typography>
+											RidePreference: 
+										</Typography>
+										<Button variant='outlined'>
+											Apply this search
+										</Button>
+										</AccordionDetails>
+									</Accordion>
+									<Accordion>
+										<AccordionSummary
+										expandIcon={<ExpandMoreIcon />}
+										aria-controls="panel1a-content"
+										id="panel1a-header"
+										>
+										<Typography>3- {new Date().toString()}</Typography>
+										</AccordionSummary>
+										<AccordionDetails>
+										<Typography>
+											This search history include previous collected search.
+										</Typography>
+										<Typography>
+											Search:
+										</Typography>
+										<Typography>
+											Religion: 
+										</Typography>
+										<Typography>
+											Status: 
+										</Typography>
+										<Typography>
+											Gender: 
+										</Typography>
+										<Typography>
+											TravelLocation: 
+										</Typography>
+										<Typography>
+											PLacesToVisit: 
+										</Typography>
+										<Typography>
+											RidePreference: 
+										</Typography>
+										<Button variant='outlined'>
+											Apply this search
+										</Button>
+										</AccordionDetails>
+									</Accordion>
+									<Accordion>
+										<AccordionSummary
+										expandIcon={<ExpandMoreIcon />}
+										aria-controls="panel1a-content"
+										id="panel1a-header"
+										>
+										<Typography>4- {new Date().toString()}</Typography>
+										</AccordionSummary>
+										<AccordionDetails>
+										<Typography>
+											This search history include previous collected search.
+										</Typography>
+										<Typography>
+											Search:
+										</Typography>
+										<Typography>
+											Religion: 
+										</Typography>
+										<Typography>
+											Status: 
+										</Typography>
+										<Typography>
+											Gender: 
+										</Typography>
+										<Typography>
+											TravelLocation: 
+										</Typography>
+										<Typography>
+											PLacesToVisit: 
+										</Typography>
+										<Typography>
+											RidePreference: 
+										</Typography>
+										<Button variant='outlined'>
+											Apply this search
+										</Button>
+										</AccordionDetails>
+									</Accordion>
+									<Accordion>
+										<AccordionSummary
+										expandIcon={<ExpandMoreIcon />}
+										aria-controls="panel1a-content"
+										id="panel1a-header"
+										>
+										<Typography>5- {new Date().toString()}</Typography>
+										</AccordionSummary>
+										<AccordionDetails>
+										<Typography>
+											This search history include previous collected search.
+										</Typography>
+										<Typography>
+											Search:
+										</Typography>
+										<Typography>
+											Religion: 
+										</Typography>
+										<Typography>
+											Status: 
+										</Typography>
+										<Typography>
+											Gender: 
+										</Typography>
+										<Typography>
+											TravelLocation: 
+										</Typography>
+										<Typography>
+											PLacesToVisit: 
+										</Typography>
+										<Typography>
+											RidePreference: 
+										</Typography>
+										<Button variant='outlined'>
+											Apply this search
+										</Button>
+										</AccordionDetails>
+									</Accordion>
+
+									</Grid.Col>
+								</Grid>
+							</Modal>
 							<p><span style={{color: '#1976d2'}}>Note</span> match builder is history storing capability of additional filters so you can use in your next session</p>
 						</RecommendedTravelerSideBarFilter>
 					</RecommendedTravelerSideBarContainer>
