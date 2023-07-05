@@ -103,6 +103,11 @@ const Payment = () => {
       }}
     >
       <Grid item xs={12} lg={6} sx={{ margin: { xs: 2, sm: 4, lg: 5, xl: 5 } }}>
+
+        <Typography variant="h5" gutterBottom>
+          Item Sr# 12a456
+        </Typography>
+
         <Typography variant="h5" gutterBottom>
           Payment Information
         </Typography>

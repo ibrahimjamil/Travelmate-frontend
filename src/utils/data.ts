@@ -4,6 +4,10 @@ const links = [
       label: "Home"
     },
     {
+      link: '/invite',
+      label: "Invite"
+    },
+    {
       link: '/matched-builder',
       label: "Matched Builder"
     },

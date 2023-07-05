@@ -1,6 +1,7 @@
 import Vendors from "../components/Vendor";
 import {AdminDashboard} from "../container/Admin/AdminDashboard";
 import Chat from "../container/Chat";
+import Invite from "../container/Invite";
 import MatchedTraveler from "../container/MatchedTraveler";
 import Payment from "../container/Payment";
 
@@ -26,6 +27,11 @@ const AdminRoutes = [
 		path: BASE_URL + '/matched-travelers',
 		title: 'Matched Traveler',
 		component: MatchedTraveler,
+	},
+	{
+		path: BASE_URL + '/invite',
+		title: 'Invite',
+		component: Invite,
 	},
 	{
 		path: BASE_URL,

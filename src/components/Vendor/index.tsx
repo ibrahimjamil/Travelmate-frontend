@@ -1,16 +1,9 @@
 import React, { useState } from 'react'
-import { Paper, Text, Button } from '@mantine/core'
-import { StyledLinks } from '../../container/Payment';
+import { Button } from '@mantine/core'
 import { Box, ButtonGroup } from '@mui/material';
-import Card from '@mui/material/Card';
-import CardMedia from '@mui/material/CardMedia';
-import CardContent from '@mui/material/CardContent';
-import CardActions from '@mui/material/CardActions';
-import IconButton, { IconButtonProps } from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
-import FavoriteIcon from '@mui/icons-material/Favorite';
-import Rating from '@mui/material/Rating';
-import StarIcon from '@mui/icons-material/Star';
+import { IconButtonProps } from '@mui/material/IconButton';
+import Hotel from '../../custompages/hotel/Hotel';
+import List from '../../custompages/list/List';
 interface ExpandMoreProps extends IconButtonProps {
   expand: boolean;
 }
@@ -61,195 +54,19 @@ const Vendors = () => {
             setAirlinesToggle(true),
             setHotelToggle(false),
             setConvenienceToggle(false)
-          }}>Airline</Button>
+          }}>Hotels</Button>
         <Button variant={hotelToggle ? 'filled' : 'outline'} style={{marginRight: '10px'}} onClick={() => {
             setAirlinesToggle(false),
             setHotelToggle(true),
             setConvenienceToggle(false)
-          }}>Hotel</Button>
-        <Button variant={convenienceToggle ? 'filled' : 'outline'} style={{marginRight: '10px'}} onClick={() => {
-            setAirlinesToggle(false),
-            setHotelToggle(false),
-            setConvenienceToggle(true)
-          }}>Convenience</Button>
+          }}>Specific Hotel</Button>
       </ButtonGroup>
     </Box>
     {airlineToggle && 
-    <div style={{
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: 'center'
-      }}>
-        {[{}, {}, {}, {}]?.map((mt: any, index: any) => (
-            <Card key={index} style={{display: 'flex', flexDirection: 'row', marginBottom: '10px', width: '50%'}}>
-            <CardMedia
-              component="img"
-              height="194"
-              image="/image.png"
-              alt="Paella dish"
-            />
-            <Box style={{display: 'flex', flexDirection: 'column'}}>
-              <CardContent>
-                <Typography variant="body2" color="text.secondary">
-                <span style={{color: '#228be6'}} >Airline </span>lorem ipsum dolor sit amet consectetur adipisicing elit. Accusamus blanditiis voluptatibus fuga recusandae quis provident delectus a est enim perspiciatis odit, excepturi quidem harum ipsa nesciunt nemo. Vero, porro explicabo.
-                </Typography>
-              </CardContent>
-              <CardActions disableSpacing>
-                <IconButton aria-label="add to favorites">
-                  <FavoriteIcon />
-                </IconButton>
-                <Box
-                  sx={{
-                    width: 200,
-                    display: 'flex',
-                    alignItems: 'center',
-                  }}
-                >
-                  <Rating
-                    name="hover-feedback"
-                    value={value}
-                    precision={0.5}
-                    getLabelText={getLabelText}
-                    onChange={(event, newValue) => {
-                      setValue(newValue);
-                    }}
-                    onChangeActive={(event, newHover) => {
-                      setHover(newHover);
-                    }}
-                    emptyIcon={<StarIcon style={{ opacity: 0.55 }} fontSize="inherit" />}
-                  />
-                  {value !== null && (
-                    <Box sx={{ ml: 2 }}>{labels[hover !== -1 ? hover : value]}</Box>
-                  )}
-                </Box>
-              </CardActions>
-              <Box>
-              <Button variant={'outline'} style={{marginBottom: '10px', marginRight: '10px'}} onClick={() => {}}>Reserve</Button>
-              <Button variant={'filled'} style={{marginBottom: '10px', marginRight: '10px'}} onClick={() => {}}>Show Prices</Button>
-              </Box>
-            </Box>
-          </Card>
-        ))}
-      </div>
+       <List/>
       }
       {hotelToggle &&
-        <div style={{
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'center',
-          alignItems: 'center'
-        }}>
-          {[{}, {}, {}, {}]?.map((mt: any, index: any) => (
-              <Card key={index} style={{display: 'flex', flexDirection: 'row', marginBottom: '10px', width: '50%'}}>
-              <CardMedia
-                component="img"
-                height="194"
-                image="/image.png"
-                alt="Paella dish"
-              />
-              <Box style={{display: 'flex', flexDirection: 'column'}}>
-                <CardContent>
-                  <Typography variant="body2" color="text.secondary">
-                  <span style={{color: '#228be6'}} >Hotel </span>lorem ipsum dolor sit amet consectetur adipisicing elit. Accusamus blanditiis voluptatibus fuga recusandae quis provident delectus a est enim perspiciatis odit, excepturi quidem harum ipsa nesciunt nemo. Vero, porro explicabo.
-                  </Typography>
-                </CardContent>
-                <CardActions disableSpacing>
-                  <IconButton aria-label="add to favorites">
-                    <FavoriteIcon />
-                  </IconButton>
-                  <Box
-                    sx={{
-                      width: 200,
-                      display: 'flex',
-                      alignItems: 'center',
-                    }}
-                  >
-                    <Rating
-                      name="hover-feedback"
-                      value={value}
-                      precision={0.5}
-                      getLabelText={getLabelText}
-                      onChange={(event, newValue) => {
-                        setValue(newValue);
-                      }}
-                      onChangeActive={(event, newHover) => {
-                        setHover(newHover);
-                      }}
-                      emptyIcon={<StarIcon style={{ opacity: 0.55 }} fontSize="inherit" />}
-                    />
-                    {value !== null && (
-                      <Box sx={{ ml: 2 }}>{labels[hover !== -1 ? hover : value]}</Box>
-                    )}
-                  </Box>
-                </CardActions>
-                <Box>
-                <Button variant={'outline'} style={{marginBottom: '10px', marginRight: '10px'}} onClick={() => {}}>Reserve</Button>
-                <Button variant={'filled'} style={{marginBottom: '10px', marginRight: '10px'}} onClick={() => {}}>Show Prices</Button>
-                </Box>
-              </Box>
-            </Card>
-          ))}
-        </div>
-      }
-      {convenienceToggle &&
-        <div style={{
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'center',
-          alignItems: 'center'
-        }}>
-          {[{}, {}, {}, {}]?.map((mt: any, index: any) => (
-              <Card key={index} style={{display: 'flex', flexDirection: 'row', marginBottom: '10px', width: '50%'}}>
-              <CardMedia
-                component="img"
-                height="194"
-                image="/image.png"
-                alt="Paella dish"
-              />
-              <Box style={{display: 'flex', flexDirection: 'column'}}>
-                <CardContent>
-                  <Typography variant="body2" color="text.secondary">
-                    <span style={{color: '#228be6'}} >Convenience </span>lorem ipsum dolor sit amet consectetur adipisicing elit. Accusamus blanditiis voluptatibus fuga recusandae quis provident delectus a est enim perspiciatis odit, excepturi quidem harum ipsa nesciunt nemo. Vero, porro explicabo.
-                  </Typography>
-                </CardContent>
-                <CardActions disableSpacing>
-                  <IconButton aria-label="add to favorites">
-                    <FavoriteIcon />
-                  </IconButton>
-                  <Box
-                    sx={{
-                      width: 200,
-                      display: 'flex',
-                      alignItems: 'center',
-                    }}
-                  >
-                    <Rating
-                      name="hover-feedback"
-                      value={value}
-                      precision={0.5}
-                      getLabelText={getLabelText}
-                      onChange={(event, newValue) => {
-                        setValue(newValue);
-                      }}
-                      onChangeActive={(event, newHover) => {
-                        setHover(newHover);
-                      }}
-                      emptyIcon={<StarIcon style={{ opacity: 0.55 }} fontSize="inherit" />}
-                    />
-                    {value !== null && (
-                      <Box sx={{ ml: 2 }}>{labels[hover !== -1 ? hover : value]}</Box>
-                    )}
-                  </Box>
-                </CardActions>
-                <Box>
-                <Button variant={'outline'} style={{marginBottom: '10px', marginRight: '10px'}} onClick={() => {}}>Reserve</Button>
-                <Button variant={'filled'} style={{marginBottom: '10px', marginRight: '10px'}} onClick={() => {}}>Show Prices</Button>
-                </Box>
-              </Box>
-            </Card>
-          ))}
-        </div>
+        <Hotel/>
       }
     </>
   )
