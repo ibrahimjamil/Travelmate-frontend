@@ -4,4 +4,6 @@ export default {
 	SESSION_TIME: process.env.SESSION_TIME,
 	ACCESS_TOKEN: typeof window !== 'undefined' && localStorage.getItem('accessToken'),
 	ID_TOKEN: typeof window !== 'undefined' && localStorage.getItem('idToken'),
+	SLACK_WEBHOOK: '',
+	SLACK_PUBLIC_CHANNEL: ''
 };
