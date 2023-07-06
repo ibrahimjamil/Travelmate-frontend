@@ -4,8 +4,8 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
+    "build": "NODE_ENV=production next build",
+    "start": "NODE_ENV=production next start",
     "lint": "next lint",
     "dev:start": "NODE_ENV=development env-cmd -f .env.development --fallback --silent next dev",
     "staging:start": "NODE_ENV=staging env-cmd -f .env.staging --fallback --silent next start -H 0.0.0.0 -p ${PORT:-8080}",
