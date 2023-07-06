@@ -102,7 +102,7 @@ const RecommendedTravelerDescriptionModal = (props: ModalComponentProps) => {
             idToken: localStorage.getItem('idToken') || '',
           },
         })
-        window.location.href = `https://travelmate-backend.onrender.com/app/admin/matched-travelers`;
+        window.location.href = `https://travelmate-frontend.vercel.app/app/admin/matched-travelers`;
       }
     }
   }
