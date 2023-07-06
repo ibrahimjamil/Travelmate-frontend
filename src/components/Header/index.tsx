@@ -193,7 +193,7 @@ export function GenericHeader(props: GenericHeaderProps) {
 						event.preventDefault();
 						setActive(link.link);
 						toggleOpened(false);
-						window.location.href = `http://localhost:3000/app/admin/${link.link}`
+						window.location.href = `https://travelmate-frontend.vercel.app/app/admin/${link.link}`
 					}}
 				>
 					{link.label}

@@ -29,7 +29,7 @@ const MatchedTravelers = (props: any) => {
                 }}
                 style={{width: '30%'}} 
                 onClick={() => {
-                  window.location.href = 'http://localhost:3000/app/admin/chats'
+                  window.location.href = 'https://travelmate-frontend.vercel.app/app/admin/chats'
                 }}
                 >
                  {'Chat Now'}
