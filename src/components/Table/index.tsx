@@ -2,6 +2,7 @@ import { Table, Image, Grid, createStyles, Box} from '@mantine/core';
 import { memo, useEffect, useState } from 'react';
 import RecommendedTravelerDescriptionModal from '../Modal/index';
 import axios from 'axios';
+import AppConfig from '../../constants/AppConfig';
 
 type TableComponentProps = {
 	striped?: boolean;
@@ -63,7 +64,7 @@ const TableComponent = (props: TableComponentProps) => {
 	};
 	useEffect(() => {
 		async function setUser() {
-			const currentUserPromise = await axios.get('http://localhost:8000/api/user/', {
+			const currentUserPromise = await axios.get(`${AppConfig.APP_URL}user/`, {
 				headers: {
 					authorization: `Bearer ${localStorage.getItem('accessToken')}`,
 					idToken: localStorage.getItem('idToken') || '',

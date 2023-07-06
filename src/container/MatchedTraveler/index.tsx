@@ -2,18 +2,19 @@ import axios from 'axios';
 import { Loader, Text } from '@mantine/core';
 import React, { useEffect, useState } from 'react'
 import MatchedTravelers from '../../components/MatchedTravelers';
+import AppConfig from '../../constants/AppConfig';
 
 const MatchedTraveler = () => {
   const [matchTraveler, setMatchedTraveler] = useState<any>();
   useEffect(() => {
     async function fetch(){
-      const currentUserPromise = await axios.get('http://localhost:8000/api/user/', {
+      const currentUserPromise = await axios.get(`${AppConfig.APP_URL}user/`, {
         headers: {
           authorization: `Bearer ${localStorage.getItem('accessToken')}`,
           idToken: localStorage.getItem('idToken') || '',
         },
       })
-      const res = await axios.get('http://localhost:8000/api/matchTraveler/getUserMatches/',{
+      const res = await axios.get(`${AppConfig.APP_URL}matchTraveler/getUserMatches/`,{
         params: {
           id: currentUserPromise.data.id
         },

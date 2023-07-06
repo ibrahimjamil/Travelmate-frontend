@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { Modal, createStyles, Image, Grid, Title, ScrollArea, Table } from '@mantine/core';
 import axios from 'axios';
 import { Button } from '@mui/material';
+import AppConfig from '../../constants/AppConfig';
 
 
 type ModalComponentProps = {
@@ -72,14 +73,14 @@ const RecommendedTravelerDescriptionModal = (props: ModalComponentProps) => {
   const { open, close, data } = props || {};
 
   const handleMatchRecommendation = async (Id: any) => {
-    const currentUserPromise = axios.get('http://localhost:8000/api/user/', {
+    const currentUserPromise = axios.get(`${AppConfig.APP_URL}user/`, {
       headers: {
         authorization: `Bearer ${localStorage.getItem('accessToken')}`,
         idToken: localStorage.getItem('idToken') || '',
       },
     })
 
-    const itemUserPromise = axios.get('http://localhost:8000/api/user/one/', {
+    const itemUserPromise = axios.get(`${AppConfig.APP_URL}user/one/`, {
       headers: {
         authorization: `Bearer ${localStorage.getItem('accessToken')}`,
         idToken: localStorage.getItem('idToken') || '',
@@ -92,7 +93,7 @@ const RecommendedTravelerDescriptionModal = (props: ModalComponentProps) => {
     const [currentUser, itemUser] = await Promise.all([currentUserPromise, itemUserPromise])
     if ((currentUser.data && itemUser.data)) {
       if (currentUser?.data?.id !== itemUser?.data?.id) {
-        await axios.post('http://localhost:8000/api/matchTraveler/addUsersMatch/', {
+        await axios.post(`${AppConfig.APP_URL}matchTraveler/addUsersMatch/`, {
           user1: currentUser.data?.id,
           user2: itemUser.data?.id
         },{
@@ -101,7 +102,7 @@ const RecommendedTravelerDescriptionModal = (props: ModalComponentProps) => {
             idToken: localStorage.getItem('idToken') || '',
           },
         })
-        window.location.href = 'http://localhost:3000/app/admin/matched-travelers';
+        window.location.href = `${AppConfig.APP_URL}admin/matched-travelers`;
       }
     }
   }

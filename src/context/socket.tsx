@@ -11,7 +11,7 @@ export function SocketProvider({ children }: any) {
   const [socket, setSocket] = useState<any>();
 
   useEffect(() => {
-    const newSocket = io("http://localhost:8000", { autoConnect: false });
+    const newSocket = io("https://travelmate-backend.onrender.com", { autoConnect: false });
     setSocket(newSocket);
 
     newSocket.connect();

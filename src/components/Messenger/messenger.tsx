@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import axios from "axios";
 import { Title } from '@mantine/core'
 import { useSocket } from "../../context/socket";
+import AppConfig from "../../constants/AppConfig";
 
 export default function Messenger() {
   const [currentChat, setCurrentChat] = useState<any>(null);
@@ -47,13 +48,13 @@ export default function Messenger() {
 
   useEffect(() => {
     async function fetch(){
-      const currentUserPromise = await axios.get('http://localhost:8000/api/user/', {
+      const currentUserPromise = await axios.get(`${AppConfig.APP_URL}user/`, {
         headers: {
           authorization: `Bearer ${localStorage.getItem('accessToken')}`,
           idToken: localStorage.getItem('idToken') || '',
         },
       })
-      const res = await axios.get('http://localhost:8000/api/matchTraveler/getUserMatches/',{
+      const res = await axios.get(`${AppConfig.APP_URL}matchTraveler/getUserMatches/`,{
         params: {
           id: currentUserPromise.data.id
         },
