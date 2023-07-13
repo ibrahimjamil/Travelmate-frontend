@@ -28,17 +28,19 @@ export function SocketProvider({ children }: any) {
   }, []);
 
   useEffect(() => {
-    navigator.mediaDevices.getUserMedia({ video: true, audio: true })
+    if (socket) {
+      navigator.mediaDevices.getUserMedia({ video: true, audio: true })
       .then((currentStream) => {
         setStream(currentStream);
 
         myVideo.current.srcObject = currentStream;
       });
-    socket.on('me', (id: any) => setMe(id));
-    socket.on('callUser', ({ from, name: callerName, signal }: any) => {
-      setCall({ isReceivingCall: true, from, name: callerName, signal });
+      socket?.on('me', (id: any) => setMe(id));
+      socket?.on('callUser', ({ from, name: callerName, signal }: any) => {
+        setCall({ isReceivingCall: true, from, name: callerName, signal });
     });
-  }, []);
+    }
+  }, [socket])
 
   const answerCall = () => {
     setCallAccepted(true);
@@ -61,7 +63,7 @@ export function SocketProvider({ children }: any) {
     peer.on('stream', (currentStream) => {
       userVideo.current.srcObject = currentStream;
     });
-    socket.on('callAccepted', (signal: any) => {
+    socket?.on('callAccepted', (signal: any) => {
       setCallAccepted(true);
       peer.signal(signal);
     });
