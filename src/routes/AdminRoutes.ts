@@ -4,6 +4,7 @@ import Chat from "../container/Chat";
 import Invite from "../container/Invite";
 import MatchedTraveler from "../container/MatchedTraveler";
 import Payment from "../container/Payment";
+import VideoCall from "../container/VideoCall";
 
 export const BASE_URL = '/app/admin';
 
@@ -22,6 +23,11 @@ const AdminRoutes = [
 		path: BASE_URL + '/chats',
 		title: 'Matched Traveler Chat',
 		component: Chat,
+	},
+	{
+		path: BASE_URL + '/video-call',
+		title: 'Video Call',
+		component: VideoCall
 	},
 	{
 		path: BASE_URL + '/matched-travelers',

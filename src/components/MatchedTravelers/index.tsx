@@ -1,4 +1,4 @@
-import { Paper, Text, Button } from '@mantine/core'
+import { Paper, Text } from '@mantine/core'
 import React from 'react'
 import { StyledLinks } from '../../container/Payment';
 
@@ -33,6 +33,25 @@ const MatchedTravelers = (props: any) => {
                 }}
                 >
                  {'Chat Now'}
+              </StyledLinks>
+
+              <StyledLinks
+                cancelButton
+                sx={{
+                  width: {
+                    xs: '100%',
+                    sm: 'fit-content',
+                    md: 'fit-content',
+                    lg: 'fit-content',
+                  },
+                  marginBottom: { xs: 2, sm: 0 },
+                }}
+                style={{width: '30%'}} 
+                onClick={() => {
+                  window.location.href = 'https://travelmate-frontend.vercel.app/app/admin/video-call'
+                }}
+                >
+                 {'Call Now'}
               </StyledLinks>
             </Paper>
         ))}
