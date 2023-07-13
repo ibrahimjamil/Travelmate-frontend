@@ -28,19 +28,25 @@ export function SocketProvider({ children }: any) {
   }, []);
 
   useEffect(() => {
-    if (socket) {
-      navigator.mediaDevices.getUserMedia({ video: true, audio: true })
-      .then((currentStream) => {
+    const setupMediaAndSocket = async () => {
+      try {
+        const currentStream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
         setStream(currentStream);
-
         myVideo.current.srcObject = currentStream;
-      });
-      socket?.on('me', (id: any) => setMe(id));
-      socket?.on('callUser', ({ from, name: callerName, signal }: any) => {
-        setCall({ isReceivingCall: true, from, name: callerName, signal });
-    });
+      
+        socket?.on('me', (id: any) => setMe(id));
+        socket?.on('callUser', ({ from, name: callerName, signal }: any) => {
+          setCall({ isReceivingCall: true, from, name: callerName, signal });
+        });
+      } catch (error) {
+        // Handle error
+      }
+    };
+  
+    if (socket) {
+      setupMediaAndSocket();
     }
-  }, [socket])
+  }, [socket]);
 
   const answerCall = () => {
     setCallAccepted(true);
