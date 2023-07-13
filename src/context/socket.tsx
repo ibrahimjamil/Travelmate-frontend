@@ -8,9 +8,8 @@ export function useSocket() {
   return useContext(SocketContext);
 }
 
-const socket = io("https://travelmate-backend.onrender.com", { autoConnect: false });
-
 export function SocketProvider({ children }: any) {
+  const [socket, setSocket] = useState<any>();
   const [callAccepted, setCallAccepted] = useState<any>(false);
   const [callEnded, setCallEnded] = useState<any>(false);
   const [stream, setStream] = useState<any>();
@@ -21,6 +20,12 @@ export function SocketProvider({ children }: any) {
   const myVideo: any = useRef();
   const userVideo: any = useRef();
   const connectionRef: any = useRef();
+
+  useEffect(() => {
+    const newSocket = io("https://travelmate-backend.onrender.com", { autoConnect: false });
+    setSocket(newSocket);
+    newSocket.connect();
+  }, []);
 
   useEffect(() => {
     const setupMediaAndSocket = async () => {
@@ -41,7 +46,7 @@ export function SocketProvider({ children }: any) {
     if (socket) {
       setupMediaAndSocket();
     }
-  }, []);
+  }, [socket]);
 
   const answerCall = () => {
     setCallAccepted(true);
