@@ -1,10 +1,10 @@
 import React, { useContext } from 'react';
 import { Button } from '@mui/material';
 
-import { SocketContext } from '../../context/socket';
+import { SocketContext, useSocket } from '../../context/socket';
 
 const NotificationComponent = () => {
-  const { answerCall, call, callAccepted } = useContext(SocketContext);
+  const { answerCall, call, callAccepted } = useSocket();
 
   return (
     <>

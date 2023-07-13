@@ -11,7 +11,7 @@ export default function Messenger() {
   const [matchTraveler, setMatchedTraveler] = useState<any>();
   const [currentUser, setCurrentUser] = useState<any>();
   const [activeChat, setActiveChat] = useState(null);
-  const socket = useSocket();
+  const {socket} = useSocket();
   const scrollRef: any = useRef();
 
   useEffect(() => {

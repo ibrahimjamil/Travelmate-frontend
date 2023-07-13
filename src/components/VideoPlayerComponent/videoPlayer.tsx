@@ -1,5 +1,5 @@
 import React, { useContext } from 'react'
-import { SocketContext } from '../../context/socket';
+import { useSocket } from '../../context/socket';
 import { Grid, Typography, Paper } from '@mui/material';
 import { styled } from '@mui/material/styles';
 
@@ -25,7 +25,7 @@ const PaperContainer = styled(Paper)({
 });
 
 const VideoPlayerComponent = () => {
-  const { name, callAccepted, myVideo, userVideo, callEnded, stream, call } = useContext(SocketContext);
+  const { name, callAccepted, myVideo, userVideo, callEnded, stream, call } = useSocket();
 
   return (
     <GridContainer container>
