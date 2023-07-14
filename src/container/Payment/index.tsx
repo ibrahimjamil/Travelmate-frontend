@@ -88,6 +88,7 @@ const Payment = () => {
 
         setTimeout(() => {
           setSuccess(false);
+          window.location = data.data.url
         }, 5000)
       }
     }
