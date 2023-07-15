@@ -31,12 +31,13 @@ const Vendors = () => {
   const [specificHotel, setSpecificHotel] = useState(0);
   const [list, setList] = useState([
     {
+      srNo: '12a34d',
       title: 'PC Hotel',
       image: "https://cf.bstatic.com/xdata/images/hotel/max1280x900/278504590.jpg?k=2d6676b5981e1fafc018b5d092375e37656a136a18b08e07acebf39a6b395ae1&o=&hp=1",
       distance: '500m from center',
       taxiDip: 'Free airport taxi',
       subTitle: 'Studio Apartment with Air conditioning',
-      features: 'Entire studio • 1 bathroom • 21m² 1 full bed',
+      features: 'Entire rooms • multiple bathroom • 21m² 1 full bed',
       cancelOption: 'You can cancel later, so lock in this great price today!',
       ratingTitle: 'Excellent',
       rating: '8.9',
@@ -48,12 +49,13 @@ const Vendors = () => {
       room: 4
     },
     {
+      srNo: '17a45g',
       title: 'Avari Hotel',
       image: 'https://cf.bstatic.com/xdata/images/hotel/max1024x768/277887727.jpg?k=218aa708109b7bff6274e168bbfe07726ae0b5922ed37280e2b5b1c1e86a892b&o=&hp=1',
       distance: '500m from center',
       taxiDip: 'Free airport taxi',
       subTitle: 'Studio Apartment with Air conditioning',
-      features: 'Entire studio • 1 bathroom • 21m² 1 full bed',
+      features: 'Entire rooms • multiple bathroom • 21m² 1 full bed',
       cancelOption: 'You can cancel later, so lock in this great price today!',
       ratingTitle: 'Excellent',
       rating: '9',

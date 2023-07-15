@@ -13,6 +13,7 @@ import { useState } from 'react';
 import _ from 'lodash';
 import axios from 'axios';
 import AppConfig from '../../constants/AppConfig';
+import { useVendor } from '../../context/vendorContext';
 interface StyledLinksProps {
   actionButton?: boolean;
   cancelButton?: boolean;
@@ -48,6 +49,7 @@ interface ShippingDataType {
 }
 
 const Payment = () => {
+  const {vendor} = useVendor();
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [cvvNumber, setCvvNumber] = useState('');
@@ -106,7 +108,7 @@ const Payment = () => {
       <Grid item xs={12} lg={6} sx={{ margin: { xs: 2, sm: 4, lg: 5, xl: 5 } }}>
 
         <Typography variant="h5" gutterBottom>
-          Item Sr# 12a456
+          Item Sr# {vendor?.srNo}
         </Typography>
 
         <Typography variant="h5" gutterBottom>

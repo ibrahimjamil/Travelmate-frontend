@@ -7,8 +7,10 @@ import {
   faLocationDot,
 } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
+import { useVendor } from "../../context/vendorContext";
 
 const Hotel = ({specificHotel, lists}: any) => {
+  const {setVendor} = useVendor();
   const [slideNumber, setSlideNumber] = useState(0);
   const [open, setOpen] = useState(false);
 
@@ -61,7 +63,7 @@ const Hotel = ({specificHotel, lists}: any) => {
           </div>
         )}
         <div className="hotelWrapper">
-          <button className="bookNow">Reserve or Book Now!</button>
+          <button className="bookNow" onClick={() => setVendor(lists[specificHotel])}>Reserve or Book Now!</button>
           <h1 className="hotelTitle">{lists[specificHotel]?.title}</h1>
           <div className="hotelAddress">
             <FontAwesomeIcon icon={faLocationDot} />
