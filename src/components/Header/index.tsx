@@ -120,10 +120,15 @@ export function GenericHeader(props: GenericHeaderProps) {
 			setActive(`/${word}`)
 		}
 
+		
+	}, [])
+
+	useEffect(() => {
+		if (socket == null) return;
 		socket.on('notify-message', ({ message }: any) => {
 			setMessage([...messages, {message}])
 		})
-	}, [])
+	}, [socket])
 
 
 	const items = links.map((link) => {

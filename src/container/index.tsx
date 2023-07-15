@@ -5,6 +5,7 @@ import { MantineProvider } from '@mantine/core';
 import { SocketProvider } from '../context/socket';
 import { GenericHeader } from '../components';
 import { links } from '../utils/data';
+import HeaderComponent from './HeaderContainer';
 
 function Admin() {
 	
@@ -22,7 +23,7 @@ function Admin() {
 						const Component: React.FunctionComponent = adminRoute.component;
 						return (
 							<Route key={index} path={adminRoute.path}>
-								<GenericHeader links={links}/>
+								<HeaderComponent/>
 								<Component />
 							</Route>
 						);
