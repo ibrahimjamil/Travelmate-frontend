@@ -37,10 +37,7 @@ const AppIndex = () => {
 						<Routes>
 							<Route key="admin" path={'/app/admin'}>
 								<>
-									<SocketProvider>
-										<GenericHeader links={links}/>
-										<Admin/>
-									</SocketProvider>
+									<Admin/>
 								</>
 							</Route>
 						</Routes>

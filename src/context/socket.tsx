@@ -25,6 +25,7 @@ export function SocketProvider({ children }: any) {
     const newSocket = io("https://travelmate-backend.onrender.com", { autoConnect: false });
     setSocket(newSocket);
     newSocket.connect();
+    socket?.connect()
   }, []);
 
   useEffect(() => {
