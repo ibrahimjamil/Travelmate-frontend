@@ -27,6 +27,7 @@ const getRecommendedTravelers = async (RecommendedTravelerFetchingFiltersTypeFet
 				RecommendedTravelerFetchingFiltersTypeFetchingFilters.path,
 				{
 					authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+					idToken: localStorage.getItem('idToken') as string,
 				},
 				{
 					pageNo: RecommendedTravelerFetchingFiltersTypeFetchingFilters.pageNo,

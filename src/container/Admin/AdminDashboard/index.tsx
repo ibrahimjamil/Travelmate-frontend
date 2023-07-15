@@ -4,7 +4,7 @@ import { AxiosResponse } from 'axios';
 import { QueryFunctionContext, QueryObserverResult, useQuery } from 'react-query';
 import emotionStyled from '@emotion/styled';
 import { Group, Skeleton, Table, Grid, createStyles, Modal, Title, Card } from '@mantine/core';
-import { travelerApi } from '../../../api';
+import { builderApi, travelerApi } from '../../../api';
 import TableComponent from '../../../components/Table';
 import { DemoGender, DemoLocation, tableData } from '../../../utils/data';
 import { RecommendedTravelerSearchRowWrapper } from '../../../components/RecommendedTravelerSearchRowWrapper';
@@ -113,6 +113,7 @@ export function AdminDashboard() {
 	const [travelerStatus, setTravelerStatus] = useState('');
 	const [toTravelPlaces, setToTravelPlaces] = useState([]);
 	const [matchBuilder, setMatchBuilder] = useState(false);
+	const [builderData, setBuilderData] = useState([]);
 	const sliceMenuData = 10;
 
 	const clearAllFilters = () => {
@@ -163,19 +164,32 @@ export function AdminDashboard() {
 		}
 	);
 
+	const { refetch: refetchBuilder, isFetching: isFetchingBuilder } = useQuery(
+		['builder'],
+		async (params: QueryFunctionContext<any, any>) => {
+			return await builderApi.getBuilderHistory();
+		},
+		{
+			enabled: false,
+		}
+	);
+
 	// get products first time
 	useEffect(() => {
 		const fetchQuery = async () => {
 			const [
 				travelerInfo,
+				builderInfo
 			] = await Promise.allSettled([
 			  refetchTravelersByFilterQuery(),
+			  refetchBuilder()
 			]);
 		  
-			if (travelerInfo.status === 'fulfilled') {
+			if (travelerInfo.status === 'fulfilled' && builderInfo.status === 'fulfilled') {
 				console.log(travelerInfo.value.data?.data.hits);
 			  setTravelersData(travelerInfo.value.data?.data.hits);
 			  setTotalTravelers(travelerInfo.value.data?.data?.estimatedTotalHits);
+			  setBuilderData(builderInfo.value.data?.data?.builder);
 			}
 		  };
 		fetchQuery();
@@ -436,199 +450,25 @@ export function AdminDashboard() {
 										<h4>
 											User Specific Search History
 										</h4>
-
-										<Accordion>
-										<AccordionSummary
-										expandIcon={<ExpandMoreIcon />}
-										aria-controls="panel1a-content"
-										id="panel1a-header"
-										>
-										<Typography>1- {new Date().toString()}</Typography>
-										</AccordionSummary>
-										<AccordionDetails>
-										<Typography>
-										 This search history include previous collected search.
-										</Typography>
-										<Typography>
-											Search:
-										</Typography>
-										<Typography>
-											Religion: 
-										</Typography>
-										<Typography>
-											Status: 
-										</Typography>
-										<Typography>
-											Gender: 
-										</Typography>
-										<Typography>
-											TravelLocation: 
-										</Typography>
-										<Typography>
-											PLacesToVisit: 
-										</Typography>
-										<Typography>
-											RidePreference: 
-										</Typography>
-										<Button variant='outlined'>
-											Apply this search
-										</Button>
-										</AccordionDetails>
-									</Accordion>
-
-									<Accordion>
-										<AccordionSummary
-										expandIcon={<ExpandMoreIcon />}
-										aria-controls="panel1a-content"
-										id="panel1a-header"
-										>
-										<Typography>2- {new Date().toString()}</Typography>
-										</AccordionSummary>
-										<AccordionDetails>
-										<Typography>
-											This search history include previous collected search.
-										</Typography>
-										<Typography>
-											Search:
-										</Typography>
-										<Typography>
-											Religion: 
-										</Typography>
-										<Typography>
-											Status: 
-										</Typography>
-										<Typography>
-											Gender: 
-										</Typography>
-										<Typography>
-											TravelLocation: 
-										</Typography>
-										<Typography>
-											PLacesToVisit: 
-										</Typography>
-										<Typography>
-											RidePreference: 
-										</Typography>
-										<Button variant='outlined'>
-											Apply this search
-										</Button>
-										</AccordionDetails>
-									</Accordion>
-									<Accordion>
-										<AccordionSummary
-										expandIcon={<ExpandMoreIcon />}
-										aria-controls="panel1a-content"
-										id="panel1a-header"
-										>
-										<Typography>3- {new Date().toString()}</Typography>
-										</AccordionSummary>
-										<AccordionDetails>
-										<Typography>
-											This search history include previous collected search.
-										</Typography>
-										<Typography>
-											Search:
-										</Typography>
-										<Typography>
-											Religion: 
-										</Typography>
-										<Typography>
-											Status: 
-										</Typography>
-										<Typography>
-											Gender: 
-										</Typography>
-										<Typography>
-											TravelLocation: 
-										</Typography>
-										<Typography>
-											PLacesToVisit: 
-										</Typography>
-										<Typography>
-											RidePreference: 
-										</Typography>
-										<Button variant='outlined'>
-											Apply this search
-										</Button>
-										</AccordionDetails>
-									</Accordion>
-									<Accordion>
-										<AccordionSummary
-										expandIcon={<ExpandMoreIcon />}
-										aria-controls="panel1a-content"
-										id="panel1a-header"
-										>
-										<Typography>4- {new Date().toString()}</Typography>
-										</AccordionSummary>
-										<AccordionDetails>
-										<Typography>
-											This search history include previous collected search.
-										</Typography>
-										<Typography>
-											Search:
-										</Typography>
-										<Typography>
-											Religion: 
-										</Typography>
-										<Typography>
-											Status: 
-										</Typography>
-										<Typography>
-											Gender: 
-										</Typography>
-										<Typography>
-											TravelLocation: 
-										</Typography>
-										<Typography>
-											PLacesToVisit: 
-										</Typography>
-										<Typography>
-											RidePreference: 
-										</Typography>
-										<Button variant='outlined'>
-											Apply this search
-										</Button>
-										</AccordionDetails>
-									</Accordion>
-									<Accordion>
-										<AccordionSummary
-										expandIcon={<ExpandMoreIcon />}
-										aria-controls="panel1a-content"
-										id="panel1a-header"
-										>
-										<Typography>5- {new Date().toString()}</Typography>
-										</AccordionSummary>
-										<AccordionDetails>
-										<Typography>
-											This search history include previous collected search.
-										</Typography>
-										<Typography>
-											Search:
-										</Typography>
-										<Typography>
-											Religion: 
-										</Typography>
-										<Typography>
-											Status: 
-										</Typography>
-										<Typography>
-											Gender: 
-										</Typography>
-										<Typography>
-											TravelLocation: 
-										</Typography>
-										<Typography>
-											PLacesToVisit: 
-										</Typography>
-										<Typography>
-											RidePreference: 
-										</Typography>
-										<Button variant='outlined'>
-											Apply this search
-										</Button>
-										</AccordionDetails>
-									</Accordion>
-
+											{builderData?.length && builderData?.map((builder: any, index) => (
+												<Accordion>
+													<AccordionSummary
+														expandIcon={<ExpandMoreIcon />}
+														aria-controls="panel1a-content"
+														id="panel1a-header"
+														>
+														<Typography>{builder} - {index}</Typography>
+													</AccordionSummary>
+													<AccordionDetails>
+														<Typography>
+														This search history include previous collected search.
+														</Typography>
+														<Typography>
+															history: {builder}
+														</Typography>
+													</AccordionDetails>
+												</Accordion>
+											))}
 									</Grid.Col>
 								</Grid>
 							</Modal>
