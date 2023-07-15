@@ -450,21 +450,21 @@ export function AdminDashboard() {
 										<h4>
 											User Specific Search History
 										</h4>
-											{builderData?.length && builderData?.map((builder: any, index) => (
+											{builderData?.length && builderData?.map(({history}: any, index) => (
 												<Accordion>
 													<AccordionSummary
 														expandIcon={<ExpandMoreIcon />}
 														aria-controls="panel1a-content"
 														id="panel1a-header"
 														>
-														<Typography>{builder} - {index}</Typography>
+														<Typography>{index} - {history}</Typography>
 													</AccordionSummary>
 													<AccordionDetails>
 														<Typography>
 														This search history include previous collected search.
 														</Typography>
 														<Typography>
-															history: {builder}
+															history: {history}
 														</Typography>
 													</AccordionDetails>
 												</Accordion>
