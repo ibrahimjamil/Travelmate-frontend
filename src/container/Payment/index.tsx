@@ -95,7 +95,7 @@ const Payment = () => {
       }
     }
   }
-
+console.log(vendor);
   return (
     <Grid
       container
