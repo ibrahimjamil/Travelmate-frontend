@@ -19,10 +19,10 @@ const filterList = () => {
     const isRoomMatch = item.room >= room;
 
     return (
-      isDestinationMatch &&
-      isPriceMatch &&
-      isChildrenMatch &&
-      isAdultMatch &&
+      isDestinationMatch ||
+      isPriceMatch ||
+      isChildrenMatch ||
+      isAdultMatch ||
       isRoomMatch
     );
   });
