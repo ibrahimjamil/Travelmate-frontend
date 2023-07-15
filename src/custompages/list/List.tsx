@@ -11,7 +11,7 @@ const List = ({lists}: any) => {
   const [room, setRoom] = useState<number>(0);
 
 const filterList = () => {
-  const data = listsData.filter((item: any) => {
+  const data = lists.filter((item: any) => {
     const isDestinationMatch = !!destination && item.title.toLowerCase().includes(destination.toLowerCase());
     const isPriceMatch = item.price >= minPrice && item.price <= maxPrice;
     const isChildrenMatch = item.children >= children;
