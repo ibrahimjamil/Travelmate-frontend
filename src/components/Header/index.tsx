@@ -143,8 +143,8 @@ export function GenericHeader(props: GenericHeaderProps) {
 		<Box
 		  sx={{ width: anchor === 'top' || anchor === 'bottom' ? 'auto' : 250 }}
 		  role="presentation"
-		  onClick={toggleDrawer(anchor, false)}
-		  onKeyDown={toggleDrawer(anchor, false)}
+		  onClick={() => setState({ ...state, ['right']: false })}
+		  onKeyDown={() => setState({ ...state, ['right']: false })}
 		>
 		  <List>
 			{messages.map(({message}: any, index: any) => (
@@ -180,7 +180,7 @@ export function GenericHeader(props: GenericHeaderProps) {
 
 	useEffect(() => {
 		if (open) {
-			toggleDrawer('right', true)
+			setState({ ...state, ['right']: true })
 		}
 	}, [open])
 
@@ -259,7 +259,7 @@ export function GenericHeader(props: GenericHeaderProps) {
 							<Drawer
 								anchor={'right'}
 								open={state['right']}
-								onClose={toggleDrawer('right', false)}
+								onClose={() => setState({ ...state, ['right']: false })}
 							>
 								{list('right')}
 							</Drawer>
