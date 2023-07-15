@@ -136,15 +136,15 @@ export function GenericHeader(props: GenericHeaderProps) {
         return;
       }
 
-      setState({ ...state, [anchor]: open });
+      setState({ ...state, ['right']: open });
     };
 
 	const list = (anchor: Anchor) => (
 		<Box
 		  sx={{ width: anchor === 'top' || anchor === 'bottom' ? 'auto' : 250 }}
 		  role="presentation"
-		  onClick={toggleDrawer(anchor, false)}
-		  onKeyDown={toggleDrawer(anchor, false)}
+		  onClick={toggleDrawer('right', false)}
+		  onKeyDown={toggleDrawer('right', false)}
 		>
 		  <List>
 			{messages.map(({message}: any, index: any) => (
@@ -237,7 +237,7 @@ export function GenericHeader(props: GenericHeaderProps) {
 			);
 		} else if(link.label === 'notification'){
 			return (
-				<IconButton onClick={() => setOpen(!open)}>
+				<IconButton onClick={() => toggleDrawer('right', true)}>
 					<Badge variant='dot' color="primary" anchorOrigin={{
 						vertical: 'top',
 						horizontal: 'left',
@@ -245,18 +245,15 @@ export function GenericHeader(props: GenericHeaderProps) {
 						<MailIcon color="action" />
 						{open ? 
 							<>
-								{(['right'] as const).map((anchor) => (
-									<React.Fragment key={anchor}>
-									<Button onClick={toggleDrawer(anchor, true)}>{anchor}</Button>
+								<React.Fragment key={'right'}>
 									<Drawer
-										anchor={anchor}
-										open={state[anchor]}
-										onClose={toggleDrawer(anchor, false)}
+										anchor={'right'}
+										open={state['right']}
+										onClose={toggleDrawer('right', false)}
 									>
-										{list(anchor)}
+										{list('right')}
 									</Drawer>
 									</React.Fragment>
-								))}
 							</>
 						: ''}
 					</Badge>
