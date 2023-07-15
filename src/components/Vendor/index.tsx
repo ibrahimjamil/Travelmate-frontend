@@ -21,9 +21,6 @@ const labels: { [index: string]: string } = {
   5: 'Excellent+',
 };
 
-function getLabelText(value: number) {
-  return `${value} Star${value !== 1 ? 's' : ''}, ${labels[value]}`;
-}
 
 
 const Vendors = () => {
@@ -31,8 +28,6 @@ const Vendors = () => {
   const [hotelToggle ,setHotelToggle] = useState(false);
   const [convenienceToggle ,setConvenienceToggle] = useState(false);
   const [expanded, setExpanded] = React.useState(false);
-  const [value, setValue] = React.useState<number | null>(2);
-  const [hover, setHover] = React.useState(-1);
   const [list, setList] = useState([
     {
       title: 'PC Hotel',
@@ -60,7 +55,7 @@ const Vendors = () => {
       features: 'Entire studio • 1 bathroom • 21m² 1 full bed',
       cancelOption: 'You can cancel later, so lock in this great price today!',
       ratingTitle: 'Excellent',
-      rating: '8.9',
+      rating: '9',
       price: 200,
       taxes: 'Includes taxes and fees',
       checkAvailability: 'See availability',
