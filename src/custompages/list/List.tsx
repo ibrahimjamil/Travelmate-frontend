@@ -12,7 +12,7 @@ const List = ({lists}: any) => {
 
 const filterList = () => {
   const data = lists.filter((item: any) => {
-    const isDestinationMatch = !!destination && item.title.toLowerCase().includes(destination.toLowerCase());
+    const isDestinationMatch = !!destination && item.title.toLowerCase() === destination.toLowerCase();
     const isPriceMatch = item.price >= minPrice && item.price <= maxPrice;
     const isChildrenMatch = item.children >= children;
     const isAdultMatch = item.adult >= adult;
