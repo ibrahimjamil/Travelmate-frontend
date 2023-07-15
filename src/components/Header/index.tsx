@@ -8,6 +8,7 @@ import InviteUserModal from './InviteUserModal';
 import { useLocation } from "react-router-dom";
 import { Badge, IconButton } from '@mui/material';
 import MailIcon from '@mui/icons-material/Mail';
+import { useSocket } from '../../context/socket';
 
 
 const HEADER_HEIGHT = 60;
@@ -98,14 +99,15 @@ type GenericHeaderProps = {
 };
 
 export function GenericHeader(props: GenericHeaderProps) {
-	const [showInviteModal, setShowInviteModal] = useState(false);
 	const { links } = props;
-	const user: UserType | null = useContext(UserContext);
+	const {socket} = useSocket();
 	const router = useRouter();
+	const location = useLocation();
 	const { classes, cx } = useStyles();
 	const [active, setActive] = useState(links[0].link);
+	const user: UserType | null = useContext(UserContext);
 	const [opened, toggleOpened] = useBooleanToggle(false);
-	const location = useLocation();
+	const [showInviteModal, setShowInviteModal] = useState(false);
 
 	useEffect(() => {
 		const parts = location.pathname.split("/");
@@ -116,6 +118,8 @@ export function GenericHeader(props: GenericHeaderProps) {
 			setActive(`/${word}`)
 		}
 	}, [])
+
+
 	const items = links.map((link) => {
 		if (link.label === 'Login') {
 			if (!!user?.id) {

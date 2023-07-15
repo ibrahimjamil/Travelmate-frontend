@@ -83,7 +83,7 @@ const TableComponent = (props: TableComponentProps) => {
 						verticalSpacing={verticalSpacing}
 						striped={striped ? striped : false}
 						highlightOnHover
-						style={{ padding: '100px', height: '80%' }}
+						style={{ padding: '100px' }}
 					>
 						<thead
 							style={{
