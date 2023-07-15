@@ -1,6 +1,7 @@
 
 
-const SearchItem = (list: any) => {
+const SearchItem = ({list}: any) => {
+  console.log(list)
   return (
     <div className="searchItem">
       <img

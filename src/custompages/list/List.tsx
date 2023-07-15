@@ -63,9 +63,9 @@ const List = ({lists}: any) => {
             <button>Search</button>
           </div>
           <div className="listResult">
-            {lists.map((list: any) => {
+            {lists.map((list: any) => (
               <SearchItem list={list}/>
-            })}
+            ))}
           </div>
         </div>
       </div>
