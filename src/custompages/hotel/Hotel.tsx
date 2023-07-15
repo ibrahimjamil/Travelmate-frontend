@@ -64,7 +64,7 @@ const Hotel = ({specificHotel, lists}: any) => {
         )}
         <div className="hotelWrapper">
           <button className="bookNow" onClick={() => {
-            console.log(lists[specificHotel])
+              localStorage.setItem('vendor', JSON.stringify(lists[specificHotel]))
               setVendor(lists[specificHotel])
             }}>Reserve or Book Now!</button>
           <h1 className="hotelTitle">{lists[specificHotel]?.title}</h1>

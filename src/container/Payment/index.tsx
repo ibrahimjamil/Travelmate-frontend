@@ -95,7 +95,20 @@ const Payment = () => {
       }
     }
   }
-console.log(vendor);
+
+  const callStripe = async (id: any) => {
+    const checkout = await axios.post(`${AppConfig.APP_URL}payment/create-checkout-session`, {
+      headers: {
+        authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+        idToken: localStorage.getItem('idToken') || '',
+      },
+      params: {
+        id: id
+      }
+    })
+    window.location = checkout.data.url
+  }
+  
   return (
     <Grid
       container
@@ -108,8 +121,13 @@ console.log(vendor);
       <Grid item xs={12} lg={6} sx={{ margin: { xs: 2, sm: 4, lg: 5, xl: 5 } }}>
 
         <Typography variant="h5" gutterBottom>
-          Item Sr# {vendor?.srNo}
+          Item Sr# {JSON.parse(localStorage?.getItem('vendor') || '')?.srNo}
         </Typography>
+
+        <button onClick={() => callStripe(JSON.parse(localStorage?.getItem('vendor') || '')?.id)}>
+          Checkout Stripe
+        </button>
+
 
         <Typography variant="h5" gutterBottom>
           Payment Information

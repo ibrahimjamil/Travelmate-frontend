@@ -31,6 +31,7 @@ const Vendors = () => {
   const [specificHotel, setSpecificHotel] = useState(0);
   const [list, setList] = useState([
     {
+      id: 1,
       srNo: '12a34d',
       title: 'PC Hotel',
       image: "https://cf.bstatic.com/xdata/images/hotel/max1280x900/278504590.jpg?k=2d6676b5981e1fafc018b5d092375e37656a136a18b08e07acebf39a6b395ae1&o=&hp=1",
@@ -49,6 +50,7 @@ const Vendors = () => {
       room: 4
     },
     {
+      id: 2,
       srNo: '17a45g',
       title: 'Avari Hotel',
       image: 'https://cf.bstatic.com/xdata/images/hotel/max1024x768/277887727.jpg?k=218aa708109b7bff6274e168bbfe07726ae0b5922ed37280e2b5b1c1e86a892b&o=&hp=1',
