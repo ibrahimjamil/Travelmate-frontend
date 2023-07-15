@@ -1,6 +1,6 @@
 
 
-const SearchItem = ({list}: any) => {
+const SearchItem = ({list, index, setSpecificHotel}: any) => {
   return (
     <div className="searchItem">
       <img
@@ -29,9 +29,9 @@ const SearchItem = ({list}: any) => {
           <button>{list?.rating}</button>
         </div>
         <div className="siDetailTexts">
-          <span className="siPrice">{list?.price}</span>
+          <span className="siPrice">${list?.price}</span>
           <span className="siTaxOp">{list?.taxes}</span>
-          <button className="siCheckButton">{list?.checkAvailability}</button>
+          <button className="siCheckButton" onClick={() => setSpecificHotel(index)}>{list?.checkAvailability}</button>
         </div>
       </div>
     </div>

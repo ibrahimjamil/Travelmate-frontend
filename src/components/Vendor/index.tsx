@@ -28,6 +28,7 @@ const Vendors = () => {
   const [hotelToggle ,setHotelToggle] = useState(false);
   const [convenienceToggle ,setConvenienceToggle] = useState(false);
   const [expanded, setExpanded] = React.useState(false);
+  const [specificHotel, setSpecificHotel] = useState(0);
   const [list, setList] = useState([
     {
       title: 'PC Hotel',
@@ -94,10 +95,10 @@ const Vendors = () => {
       </ButtonGroup>
     </Box>
     {hotelListToggle && 
-       <List lists={list}/>
+       <List lists={list} setSpecificHotel={setSpecificHotel}/>
       }
       {hotelToggle &&
-        <Hotel/>
+        <Hotel lists={list} specificHotel={specificHotel}/>
       }
     </>
   )

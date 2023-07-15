@@ -1,7 +1,7 @@
 import { useState } from "react";
 import SearchItem from "../../components/searchItem/SearchItem";
 
-const List = ({lists}: any) => {
+const List = ({lists, setSpecificHotel}: any) => {
   const [listsData, setListsData] = useState(lists);
   const [destination, setDestination] = useState('');
   const [minPrice, setMinPrice] = useState<number>(0)
@@ -91,8 +91,8 @@ const filterList = () => {
             <button onClick={() => filterList()}>Search</button>
           </div>
           <div className="listResult">
-            {listsData?.map((list: any) => (
-              <SearchItem list={list}/>
+            {listsData?.map((list: any, index: any) => (
+              <SearchItem list={list} setSpecificHotel={setSpecificHotel} index={index}/>
             ))}
           </div>
         </div>

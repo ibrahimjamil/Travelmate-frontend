@@ -8,7 +8,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
 
-const Hotel = () => {
+const Hotel = ({specificHotel, lists}: any) => {
   const [slideNumber, setSlideNumber] = useState(0);
   const [open, setOpen] = useState(false);
 
@@ -77,7 +77,7 @@ const Hotel = () => {
         )}
         <div className="hotelWrapper">
           <button className="bookNow">Reserve or Book Now!</button>
-          <h1 className="hotelTitle">Tower Street Apartments</h1>
+          <h1 className="hotelTitle">{lists[specificHotel]?.title}</h1>
           <div className="hotelAddress">
             <FontAwesomeIcon icon={faLocationDot} />
             <span>Elton St 125 New york</span>
@@ -86,7 +86,7 @@ const Hotel = () => {
             Excellent location – 500m from center
           </span>
           <span className="hotelPriceHighlight">
-            Book a stay over $114 at this property and get a free airport taxi
+            {`Book a stay over $${lists[specificHotel]?.price} at this property and get a free airport taxi`}
           </span>
           <div className="hotelImages">
             {photos.map((photo, i) => (
@@ -116,17 +116,6 @@ const Hotel = () => {
                 from Tower Street Apartments, and the property offers a paid
                 airport shuttle service.
               </p>
-            </div>
-            <div className="hotelDetailsPrice">
-              <h1>Perfect for a 9-night stay!</h1>
-              <span>
-                Located in the real heart of Krakow, this property has an
-                excellent location score of 9.8!
-              </span>
-              <h2>
-                <b>$945</b> (9 nights)
-              </h2>
-              <button>Reserve or Book Now!</button>
             </div>
           </div>
         </div>
