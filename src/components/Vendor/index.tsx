@@ -59,8 +59,8 @@ const Vendors = () => {
       price: 200,
       taxes: 'Includes taxes and fees',
       checkAvailability: 'See availability',
-      adult: 2,
-      children: 3,
+      adult: 5,
+      children: 10,
       room: 5
     }
   ]) 
