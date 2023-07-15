@@ -6,8 +6,9 @@ import { useRouter } from 'next/router';
 import { UserContext, UserType } from '../../guards/authGuard';
 import InviteUserModal from './InviteUserModal';
 import { useLocation } from "react-router-dom";
-import { Badge, IconButton } from '@mui/material';
+import { Badge, Divider, IconButton, List, ListItem, ListItemButton, ListItemText } from '@mui/material';
 import MailIcon from '@mui/icons-material/Mail';
+import { useSocket } from '../../context/socket';
 
 
 const HEADER_HEIGHT = 60;
@@ -99,7 +100,10 @@ type GenericHeaderProps = {
 
 export function GenericHeader(props: GenericHeaderProps) {
 	const { links } = props;
+	const {socket} = useSocket();
 	const router = useRouter();
+	const [open, setOpen] = useState(false);
+	const [messages, setMessage] = useState<Array<{message: string}>>([])
 	const location = useLocation();
 	const { classes, cx } = useStyles();
 	const [active, setActive] = useState(links[0].link);
@@ -115,6 +119,10 @@ export function GenericHeader(props: GenericHeaderProps) {
 		}else{
 			setActive(`/${word}`)
 		}
+
+		socket.on('notify-message', ({ message }: any) => {
+			setMessage([...messages, {message}])
+		})
 	}, [])
 
 
@@ -176,12 +184,28 @@ export function GenericHeader(props: GenericHeaderProps) {
 			);
 		} else if(link.label === 'notification'){
 			return (
-				<IconButton>
-					<Badge badgeContent={1} color="primary" anchorOrigin={{
+				<IconButton onClick={() => setOpen(!open)}>
+					<Badge variant='dot' color="primary" anchorOrigin={{
 						vertical: 'top',
 						horizontal: 'left',
 					}}>
 						<MailIcon color="action" />
+						{open ? 
+							<>
+								<List>
+									<ListItem disablePadding>
+									{messages.map(({message}: any) => (
+										<>
+											<ListItemButton>
+												<ListItemText primary={message} defaultValue={message} />
+											</ListItemButton>
+											<Divider />
+										</>
+									))}
+									</ListItem>
+								</List>
+							</>
+						: ''}
 					</Badge>
 				</IconButton>
 			)

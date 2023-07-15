@@ -10,6 +10,7 @@ import AuthGuard from '../../guards/authGuard';
 import { links } from '../../utils/data';
 import { GenericHeader } from '../../components';
 import Admin from '../../container';
+import { SocketProvider } from '../../context/socket';
 
 
 type UserType = {
@@ -36,8 +37,10 @@ const AppIndex = () => {
 						<Routes>
 							<Route key="admin" path={'/app/admin'}>
 								<>
-									<GenericHeader links={links}/>
-									<Admin/>
+									<SocketProvider>
+										<GenericHeader links={links}/>
+										<Admin/>
+									</SocketProvider>
 								</>
 							</Route>
 						</Routes>
