@@ -8,7 +8,6 @@ import InviteUserModal from './InviteUserModal';
 import { useLocation } from "react-router-dom";
 import { Badge, IconButton } from '@mui/material';
 import MailIcon from '@mui/icons-material/Mail';
-import { useSocket } from '../../context/socket';
 
 
 const HEADER_HEIGHT = 60;
@@ -100,7 +99,6 @@ type GenericHeaderProps = {
 
 export function GenericHeader(props: GenericHeaderProps) {
 	const { links } = props;
-	const {socket} = useSocket();
 	const router = useRouter();
 	const location = useLocation();
 	const { classes, cx } = useStyles();
