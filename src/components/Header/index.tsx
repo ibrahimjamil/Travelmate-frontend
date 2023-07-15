@@ -237,7 +237,10 @@ export function GenericHeader(props: GenericHeaderProps) {
 			);
 		} else if(link.label === 'notification'){
 			return (
-				<IconButton onClick={() => toggleDrawer('right', true)}>
+				<IconButton onClick={() => {
+						setOpen(!open)
+						toggleDrawer('right', true)
+					}}>
 					<Badge variant='dot' color="primary" anchorOrigin={{
 						vertical: 'top',
 						horizontal: 'left',
