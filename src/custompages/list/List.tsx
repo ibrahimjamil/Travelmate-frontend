@@ -1,15 +1,10 @@
 import { useLocation } from "react-router-dom";
 import { useState } from "react";
-import { format } from "date-fns";
-import { DateRange } from "react-date-range";
 import SearchItem from "../../components/searchItem/SearchItem";
 
-const List = () => {
+const List = ({lists}: any) => {
   const location = useLocation();
-  const [destination, setDestination] = useState(location?.state?.destination || '');
-  const [date, setDate] = useState(location?.state?.date || '');
-  const [openDate, setOpenDate] = useState(false);
-  const [options, setOptions] = useState(location?.state?.options || '');
+  const [destination, setDestination] = useState('');
 
   return (
     <div>
@@ -20,20 +15,6 @@ const List = () => {
             <div className="lsItem">
               <label>Destination</label>
               <input placeholder={destination} type="text" />
-            </div>
-            <div className="lsItem">
-              <label>Check-in Date</label>
-              {/* <span onClick={() => setOpenDate(!openDate)}>{`${format(
-                date[0]?.startDate,
-                "MM/dd/yyyy"
-              )} to ${format(date[0]?.endDate, "MM/dd/yyyy")}`}</span>
-              {openDate && (
-                <DateRange
-                  onChange={(item) => setDate([item?.selection])}
-                  minDate={new Date()}
-                  ranges={date}
-                />
-              )} */}
             </div>
             <div className="lsItem">
               <label>Options</label>
@@ -56,7 +37,7 @@ const List = () => {
                     type="number"
                     min={1}
                     className="lsOptionInput"
-                    placeholder={options.adult}
+                    placeholder={''}
                   />
                 </div>
                 <div className="lsOptionItem">
@@ -65,7 +46,7 @@ const List = () => {
                     type="number"
                     min={0}
                     className="lsOptionInput"
-                    placeholder={options.children}
+                    placeholder={''}
                   />
                 </div>
                 <div className="lsOptionItem">
@@ -74,7 +55,7 @@ const List = () => {
                     type="number"
                     min={1}
                     className="lsOptionInput"
-                    placeholder={options.room}
+                    placeholder={''}
                   />
                 </div>
               </div>
@@ -82,15 +63,9 @@ const List = () => {
             <button>Search</button>
           </div>
           <div className="listResult">
-            <SearchItem />
-            <SearchItem />
-            <SearchItem />
-            <SearchItem />
-            <SearchItem />
-            <SearchItem />
-            <SearchItem />
-            <SearchItem />
-            <SearchItem />
+            {lists.map((list: any) => {
+              <SearchItem list={list}/>
+            })}
           </div>
         </div>
       </div>
