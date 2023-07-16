@@ -392,15 +392,11 @@ export function AdminDashboard() {
 								placeholder={'Places to visit'}
 								handleChange={(data: any) => setToTravelPlaces(data)}
 							/>
-							<MultiSelectComponent
-								cdata={[
-									{ label: 'United States', value: 'United States' },
-									{ label: 'Great Britain', value: 'Great Britain' },
-									{ label: 'Pakistan', value: 'Pakistan' }
-									]}
-								label={'Religion'}
-								placeholder={'Religion'}
-								handleChange={(data: any) => setToTravelPlaces(data)}
+							<SelectComponent
+								data={['Muslim', 'Christianity', 'Hinduism']}
+								label={'Religion Pref'}
+								placeholder={'Select Religion'}
+								handleChange={(data: any) => setReligion(data)}
 							/>
 							<Button variant='outlined' onClick={() => setMatchBuilder(true)}>
 								<a>
