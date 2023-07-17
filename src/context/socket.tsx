@@ -31,11 +31,17 @@ export function SocketProvider({ children }: any) {
   useEffect(() => {
     const setupMediaAndSocket = async () => {
       try {
+        // for stream of laptop camera
         const currentStream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
         setStream(currentStream);
+
+        // setting video ref to stream of our laptop
         myVideo.current.srcObject = currentStream;
       
+        // setting socket id to current user
         socket?.on('me', (id: any) => setMe(id));
+
+        // will listen from backend event 
         socket?.on('callUser', ({ from, name: callerName, signal }: any) => {
           setCall({ isReceivingCall: true, from, name: callerName, signal });
         });
@@ -58,20 +64,31 @@ export function SocketProvider({ children }: any) {
     peer.on('stream', (currentStream) => {
       userVideo.current.srcObject = currentStream;
     });
+
+    // will attach with user that is calling as recieving user clicks for answer call
     peer.signal(call.signal);
     connectionRef.current = peer;
   };
 
-  const callUser = (id: any) => {
+  const callUser = (id: any) => {   // takes other user socket id
+
+    // initiate webRTC connection for connecting two peers
     const peer = new Peer({ initiator: true, trickle: false, stream });
+
+    // it will call that signal when local peer is ready to send signal
     peer.on('signal', (data) => {
-      socket.emit('callUser', { userToCall: id, signalData: data, from: me, name });
+      socket.emit('callUser', { userToCall: id, signalData: data, from: me, name });  // pass callUser to backend will other user id, our signal data, name and from
     });
+
+    // next two will be called on call accepted when both remote peers connected
     peer.on('stream', (currentStream) => {
       userVideo.current.srcObject = currentStream;
     });
+
     socket?.on('callAccepted', (signal: any) => {
       setCallAccepted(true);
+
+      // will attach with remote if call accepted by remote user
       peer.signal(signal);
     });
     connectionRef.current = peer;
